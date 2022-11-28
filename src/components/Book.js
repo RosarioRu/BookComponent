@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function Book(props){//props (read-only) from BookList component
   return (
@@ -10,5 +11,11 @@ function Book(props){//props (read-only) from BookList component
     </React.Fragment>
   );
 }
+
+Book.propTypes = {
+  title: PropTypes.string,
+  author: PropTypes.string,
+  summary: PropTypes.string
+};
 
 export default Book;
