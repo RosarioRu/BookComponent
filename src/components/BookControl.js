@@ -13,9 +13,18 @@ class BookControl extends React.Component {
   }
 
   render() {
+    
+    let currentlyVisibleState = null;
+
+    if (this.state.formVisibleOnPage) {
+      currentlyVisibleState = <NewBookForm />
+    } else {
+      currentlyVisibleState = <BookList />
+    }
+
     return(
       <React.Fragment>
-
+        {currentlyVisibleState}
       </React.Fragment>
     );
   }
