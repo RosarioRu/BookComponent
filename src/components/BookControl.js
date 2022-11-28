@@ -7,7 +7,9 @@ class BookControl extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      formVisibleOnPage: false
+    };
   }
 
   render() {
