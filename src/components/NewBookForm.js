@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types"
 
 function NewBookForm(props){
 
@@ -8,6 +9,7 @@ function NewBookForm(props){
       console.log(event.target.title.value);
       console.log(event.target.author.value);
       console.log(event.target.summary.value);
+      //add onNewBookCreation as call back here
     }
 
   return (
@@ -32,5 +34,9 @@ function NewBookForm(props){
     </React.Fragment>
   );
 }
+
+NewBookForm.propTypes = {
+  onNewTicketCreation: PropTypes.func
+};
 
 export default NewBookForm;
