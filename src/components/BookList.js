@@ -1,26 +1,13 @@
 import React from "react";
 import Book from "./Book";
-
-//Below are "props" that are passed down to the Book component.
-const mainBookList = [ //in future, this data will come from a database or a Redux store
-  {
-    title: "The Sun Also Rises",
-    author: "Ernest Hemingway",
-    summary: "A guy and his expat friends being depressed in Europe."
-  },
-  {
-    title: "Goodnight Moon",
-    author: "Margaret W",
-    summary: "A bunny says goodnight to all the things in his bedroom."
-  }
-];
+import PropTypes from "prop-types";
 
 
-function BookList(){
+function BookList(props){
   return (
     <React.Fragment>
       <hr/>
-      {mainBookList.map((book, index) =>
+      {props.bookList.map((book, index) => //loops through list passed down from BookControl as a prop of BookList
         <Book 
           title={book.title}
           author={book.author}
@@ -31,5 +18,9 @@ function BookList(){
     </React.Fragment>
   );
 }
+
+BookList.proptypes = {
+  bookList: PropTypes.array
+};
 
 export default BookList;
