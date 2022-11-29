@@ -8,7 +8,8 @@ class BookControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formVisibleOnPage: false
+      formVisibleOnPage: false,
+      mainBookList: [] //list of books added to state
     };
   }
 
@@ -31,16 +32,19 @@ class BookControl extends React.Component {
     }));
   }
 
+  onNewBookCreation = () => {
+  }
+
   render() {
     
     let currentlyVisibleState = null;
     let buttonText = null;  
 
     if (this.state.formVisibleOnPage) {
-      currentlyVisibleState = <NewBookForm />;
+      currentlyVisibleState = <NewBookForm onNewBookCreation />;
       buttonText = "Return to Book List";
     } else {
-      currentlyVisibleState = <BookList />;
+      currentlyVisibleState = <BookList bookList={this.state.mainBookList}/>;
       buttonText = "Add a Book";
     }
 
