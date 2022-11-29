@@ -43,7 +43,7 @@ class BookControl extends React.Component {
     let buttonText = null;  
 
     if (this.state.formVisibleOnPage) {
-      currentlyVisibleState = <NewBookForm onNewBookCreation />;
+      currentlyVisibleState = <NewBookForm onNewBookCreation={this.handleAddingNewBookToList} />;
       buttonText = "Return to Book List";
     } else {
       currentlyVisibleState = <BookList bookList={this.state.mainBookList}/>;
