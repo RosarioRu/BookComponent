@@ -33,7 +33,7 @@ class BookControl extends React.Component {
   }
 
   handleAddingNewBookToList = (newBook) => {
-    const newMainBookList = this.state.mainBookList.concat(newTicket);
+    const newMainBookList = this.state.mainBookList.concat(newBook);
     this.setState({mainBookList: newMainBookList, formVisibleOnPage: false});
   }
 
