@@ -1,15 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
+import {v4} from 'uuid';
 
 function NewBookForm(props){
 
   function handleNewBookFormSubmission(event)
     {
       event.preventDefault();
-      console.log(event.target.title.value);
-      console.log(event.target.author.value);
-      console.log(event.target.summary.value);
-      //add onNewBookCreation as call back here
+      props.onNewBookCreation({
+        title: event.target.title.value,
+        author: event.target.author.value,
+        summary: event.target.summary.value,
+        id: v4()
+      });
     }
 
   return (
@@ -36,7 +39,7 @@ function NewBookForm(props){
 }
 
 NewBookForm.propTypes = {
-  onNewTicketCreation: PropTypes.func
+  onNewBookCreation: PropTypes.func
 };
 
 export default NewBookForm;
