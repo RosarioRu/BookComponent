@@ -12,6 +12,7 @@ function BookList(props){
           title={book.title}
           author={book.author}
           summary={book.summary}
+          // id={book.id}
           key={index}
         />
       )}
@@ -19,7 +20,7 @@ function BookList(props){
   );
 }
 
-BookList.proptypes = {
+BookList.propTypes = {
   bookList: PropTypes.array
 };
 
