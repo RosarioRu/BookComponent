@@ -6,6 +6,7 @@ function Book(props){//props (read-only) from BookList component
     <React.Fragment>
       <h3>{props.title}</h3>
       <h3>{props.author}</h3>
+      {/* <h3>{props.id}</h3> */}
       <p><em>{props.summary}</em></p>
       <hr/>
     </React.Fragment>
@@ -15,6 +16,8 @@ function Book(props){//props (read-only) from BookList component
 Book.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
+  // id: PropTypes.number,
+ 
   summary: PropTypes.string
 };
 
