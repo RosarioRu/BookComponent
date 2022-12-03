@@ -18,17 +18,17 @@ function NewBookForm(props){
   return (
     <React.Fragment>
       <form onSubmit={handleNewBookFormSubmission}>
-        <input
+        <input required
           type='text'
           name='title'
           placeholder='Book title' 
         />
-        <input
+        <input required
           type="text"
           name="author"
           placeholder="Author"
         />
-        <input
+        <input required
           name="summary"
           placeholder="brief summary of book"
         />
