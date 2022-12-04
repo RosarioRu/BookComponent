@@ -4,11 +4,13 @@ import PropTypes from "prop-types";
 function Book(props){//props (read-only) from BookList component
   return (
     <React.Fragment>
-      <h3>{props.title}</h3>
-      <h3>{props.author}</h3>
-      {/* <h3>{props.id}</h3> */}
-      <p><em>{props.summary}</em></p>
-      <hr/>
+      <div onClick={()=>props.whenBookClicked(props.id)}>
+        <h3>{props.title}</h3>
+        <h3>{props.author}</h3>
+        {/* <h3>{props.id}</h3> */}
+        <p><em>{props.summary}</em></p>
+        <hr/>
+      </div>
     </React.Fragment>
   );
 }
@@ -16,9 +18,9 @@ function Book(props){//props (read-only) from BookList component
 Book.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
-  // id: PropTypes.number,
- 
-  summary: PropTypes.string
+  id: PropTypes.number, //or is this id: PropTypes.string?
+  summary: PropTypes.string,
+  whenBookClicked: PropTypes.func,
 };
 
 export default Book;

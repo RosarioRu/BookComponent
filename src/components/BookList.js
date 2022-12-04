@@ -7,13 +7,15 @@ function BookList(props){
   return (
     <React.Fragment>
       <hr/>
-      {props.bookList.map((book, index) => //loops through list passed down from BookControl as a prop of BookList
+      {props.bookList.map( (book) => //loops through list passed down from BookControl as a prop of BookList
         <Book 
           title={book.title}
           author={book.author}
           summary={book.summary}
-          // id={book.id}
-          key={index}
+          key={book.id}
+          id={book.id}
+          whenBookClicked={props.onBookSelection}
+          // key={index}
         />
       )}
     </React.Fragment>
@@ -21,7 +23,8 @@ function BookList(props){
 }
 
 BookList.propTypes = {
-  bookList: PropTypes.array
+  bookList: PropTypes.array,
+  onBookSelection: PropTypes.func
 };
 
 export default BookList;
