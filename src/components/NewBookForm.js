@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {v4} from 'uuid';
+import ReusableForm from "./ReusableForm";
 
 function NewBookForm(props){
 
@@ -17,7 +18,11 @@ function NewBookForm(props){
 
   return (
     <React.Fragment>
-      <form onSubmit={handleNewBookFormSubmission}>
+      <ReusableForm 
+        formSubmissionHandler={handleNewBookFormSubmission} 
+        buttonText="Add Book"
+      />
+      {/* <form onSubmit={handleNewBookFormSubmission}>
         <input required
           type='text'
           name='title'
@@ -33,7 +38,7 @@ function NewBookForm(props){
           placeholder="brief summary of book"
         />
         <button type='submit'>Add book</button>
-      </form>
+      </form> */}
     </React.Fragment>
   );
 }
