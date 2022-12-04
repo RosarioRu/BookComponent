@@ -2,6 +2,7 @@ import React from 'react';
 import NewBookForm from './NewBookForm';
 import BookList from './BookList';
 import BookDetail from './BookDetail';
+import EditBookForm from "./EditBookForm";
 import Book from './Book';
 
 class BookControl extends React.Component {
@@ -11,7 +12,8 @@ class BookControl extends React.Component {
     this.state = {
       formVisibleOnPage: false,
       mainBookList: [], //list of books added to SHARED state
-      selectedBook: null //new local(?) state slice for book details
+      selectedBook: null,
+      editing: false 
     };
   }
 
@@ -32,7 +34,8 @@ class BookControl extends React.Component {
     if (this.state.selectedBook != null) {
       this.setState({
         formVisibleOnPage: false,
-        selectedBook: null
+        selectedBook: null,
+        editing: false
       });
     } else {
       this.setState(prevState => ({
@@ -63,15 +66,39 @@ class BookControl extends React.Component {
       selectedBook: null
     });
   }
-      
+
+  handleEditClick= () => {
+    // const bookToUpdate = this.state.mainBookList.filter(book => book.id === id)[0];
+    this.setState({
+      editing: true
+      // selectedBook: bookToUpdate
+    });
+  }
+
+  handleEditingBookInList = (editedBook)=> {
+    // const bookToEdit = this.state.mainBookList.filter(book => book.id === id)[0];
+    const shortenedBookList = this.state.mainBookList.filter(book => book.id !== editedBook.id);
+    const newMainBookList = shortenedBookList.concat(editedBook);
+    this.setState({
+      mainBookList: newMainBookList,
+      selectedBook: null,
+      editing: false
+    });
+  }
+
+
 
   render() {
     
     let currentlyVisibleState = null;
     let buttonText = null;  
 
-    if (this.state.selectedBook != null) {
-      currentlyVisibleState = <BookDetail book={this.state.selectedBook} onClickingDelete={this.handleDeletingBook} />;
+    if (this.state.editing) {
+      currentlyVisibleState = <EditBookForm book={this.state.selectedBook} onEditBook={this.handleEditingBookInList} />
+      buttonText="Never mind"
+    }
+    else if (this.state.selectedBook != null) {
+      currentlyVisibleState = <BookDetail book={this.state.selectedBook} onClickingDelete={this.handleDeletingBook} onClickingEdit={this.handleEditClick} />;
       buttonText = "Return to Book List";
     }
     else if (this.state.formVisibleOnPage) {
@@ -81,6 +108,7 @@ class BookControl extends React.Component {
       currentlyVisibleState = <BookList bookList={this.state.mainBookList} onBookSelection={this.handleChangingSelectedBook} />;
       buttonText = "Add a Book";
     }
+  
 
     return(
       <React.Fragment>

@@ -11,7 +11,12 @@ function BookDetail(props) {
       <h5>By {props.book.author}</h5>
       {/* instead of saying 'props.book.summary' can just say book.summary because of object deconstruction on line 6: */}
       <p><em>{book.summary}</em></p> 
+      <p>{book.id}</p>
+
       <button onClick={()=>props.onClickingDelete(book.id)}>Delete book</button>
+
+      <button onClick={props.onClickingEdit}>Make changes</button>
+
       <hr/>
     </React.Fragment>
   ); 
@@ -21,7 +26,8 @@ function BookDetail(props) {
 
 BookDetail.propTypes = {
   book: PropTypes.object,
-  onClickingDelete: PropTypes.func
+  onClickingDelete: PropTypes.func,
+  onClickingEdit: PropTypes.func
 };
 
 export default BookDetail;
