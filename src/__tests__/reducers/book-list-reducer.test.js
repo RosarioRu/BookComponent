@@ -32,7 +32,7 @@ describe('bookListReducer', () => {
   test("Should sucessfully add a new 'book' to mainBookList with the bookData provided", () => {
     const { title, author, summary, id } = bookData;
     action = {
-      type: "ADD_TICKET",
+      type: "ADD_BOOK",
       title: title,
       author: author, 
       summary: summary,
@@ -50,7 +50,7 @@ describe('bookListReducer', () => {
 
   test("Should delete ticket with key of 2", () => {
     action = {
-      type: "DELETE_TICKET",
+      type: "DELETE_BOOK",
       id: 2
     };
     expect(bookListReducer(currentState, action)).toEqual({
