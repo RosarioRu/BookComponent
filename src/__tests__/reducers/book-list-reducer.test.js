@@ -10,6 +10,20 @@ describe('bookListReducer', () => {
     summary: "A bunny says goodnight to everything in his bedroom.",
     id: 1
   };
+  const currentState= {
+    1: {
+      title: "Title 1",
+      author: "Author 1",
+      summary: "A summary of book 1.",
+      id:1
+    },
+    2: {
+      title: "Title 2",
+      author: "Author 2",
+      summary: "A summary of book 2.",
+      id: 2
+    }
+  };
 
   test("Should return default state if there is no action type passed into the reducer", () => {
     expect(bookListReducer({}, {type: null})).toEqual({});
@@ -30,6 +44,21 @@ describe('bookListReducer', () => {
         author: author,
         summary: summary,
         id: id
+      }
+    });
+  });
+
+  test("Should delete ticket with key of 2", () => {
+    action = {
+      type: "DELETE_TICKET",
+      id: 2
+    };
+    expect(bookListReducer(currentState, action)).toEqual({
+      1: {
+        title: "Title 1",
+        author: "Author 1",
+        summary: "A summary of book 1.",
+        id:1
       }
     });
   });
