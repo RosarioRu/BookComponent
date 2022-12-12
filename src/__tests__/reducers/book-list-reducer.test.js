@@ -25,10 +25,12 @@ describe('bookListReducer', () => {
     }
   };
 
+  //test 1
   test("Should return default state if there is no action type passed into the reducer", () => {
     expect(bookListReducer({}, {type: null})).toEqual({});
   });
 
+  //test 2
   test("Should sucessfully add a new 'book' to mainBookList with the bookData provided", () => {
     const { title, author, summary, id } = bookData;
     action = {
@@ -48,6 +50,7 @@ describe('bookListReducer', () => {
     });
   });
 
+  //test 3
   test("Should delete ticket with key of 2", () => {
     action = {
       type: "DELETE_BOOK",
@@ -63,16 +66,19 @@ describe('bookListReducer', () => {
     });
   });
 
+  //test 4
   test("Should update an existing ticket when partial changes are submitted", () => {
     action = {
       type: "UPDATE_BOOK",
       id: 1,
-      title: "NEW UPDATED TITLE TEST!"
+      // title: "NEW UPDATED TITLE TEST!",
+      author: "Jimminy Cricket"
     };
     expect(bookListReducer(currentState, action)).toEqual({
       1: {
-        title: "NEW UPDATED TITLE TEST!",
-        author: "Author 1",
+        // title: "NEW UPDATED TITLE TEST!",
+        title: "Title 1",
+        author: "Jimminy Cricket",
         summary: "A summary of book 1.",
         id:1
       },

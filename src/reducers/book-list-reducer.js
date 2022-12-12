@@ -20,6 +20,11 @@ const reducer = (state = {}, action) => {
     let newState = {...state};
     delete newState[id];
     return newState;
+  case 'UPDATE_BOOK':
+    let copyOfState = {...state};
+    const bookToUpdate = copyOfState[id];
+    const updatedBook = {...bookToUpdate, title: (action.title || bookToUpdate.title), author: (author || bookToUpdate.author), summary: (summary || bookToUpdate.summary)};
+    return {...copyOfState, [id] : updatedBook};
   default:
     return state;
   }
