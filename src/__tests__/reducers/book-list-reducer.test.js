@@ -63,4 +63,26 @@ describe('bookListReducer', () => {
     });
   });
 
+  test("Should update an existing ticket when partial changes are submitted", () => {
+    action = {
+      type: "UPDATE_BOOK",
+      id: 1,
+      title: "NEW UPDATED TITLE TEST!"
+    };
+    expect(bookListReducer(currentState, action)).toEqual({
+      1: {
+        title: "NEW UPDATED TITLE TEST!",
+        author: "Author 1",
+        summary: "A summary of book 1.",
+        id:1
+      },
+      2: {
+        title: "Title 2",
+        author: "Author 2",
+        summary: "A summary of book 2.",
+        id: 2
+      }
+    });
+  });
+
 });
