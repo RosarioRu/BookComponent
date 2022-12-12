@@ -1,9 +1,9 @@
 const reducer = (state = {}, action) => {
 
-  // const { title, author, summary, id } = action;
+  const { title, author, summary, id } = action;
 
   switch (action.type) {
-  case 'ADD_TICKET': 
+  case 'ADD_BOOK': 
     return Object.assign({}, state, {
       [action.id]: {
         // title: title,
@@ -16,6 +16,10 @@ const reducer = (state = {}, action) => {
         id: action.id
       }
     });
+  case 'DELETE_BOOK':
+    let newState = {...state};
+    delete newState[id];
+    return newState;
   default:
     return state;
   }
