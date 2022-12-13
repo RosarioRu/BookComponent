@@ -4,6 +4,7 @@ import BookList from './BookList';
 import BookDetail from './BookDetail';
 import EditBookForm from "./EditBookForm";
 import Book from './Book';
+import { connect } from 'react-redux';
 
 class BookControl extends React.Component {
 
@@ -120,4 +121,5 @@ class BookControl extends React.Component {
 
 }
 
+BookControl = connect()(BookControl);
 export default BookControl;
