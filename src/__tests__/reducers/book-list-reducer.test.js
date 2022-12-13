@@ -91,4 +91,28 @@ describe('bookListReducer', () => {
     });
   });
 
+  //test 5: checking that if we provide a null value the reducer will still work to update a book - in preperation for a partially completed/provided form. 
+  test("Should keep existing title when title provided in the action is 'null' but update the summary", () => {
+    action = {
+      type: "UPDATE_BOOK",
+      id: 1,
+      title: null,
+      summary: "Updates the summary successfully."
+    };
+    expect(bookListReducer(currentState, action)).toEqual({
+      1: {
+        title: "Title 1",
+        author: "Author 1",
+        summary: "Updates the summary successfully.",
+        id:1
+      },
+      2: {
+        title: "Title 2",
+        author: "Author 2",
+        summary: "A summary of book 2.",
+        id: 2
+      }
+    });
+  });
+
 });
