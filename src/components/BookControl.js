@@ -5,6 +5,7 @@ import BookDetail from './BookDetail';
 import EditBookForm from "./EditBookForm";
 import Book from './Book';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class BookControl extends React.Component {
 
@@ -105,8 +106,6 @@ class BookControl extends React.Component {
     });
   }
 
-
-
   render() {
     
     let currentlyVisibleState = null;
@@ -139,5 +138,15 @@ class BookControl extends React.Component {
 
 }
 
-BookControl = connect()(BookControl);
+BookControl.propTypes = {
+  mainBookList: PropTypes.object
+};
+
+const mapStateToProps = state => {
+  return {
+    mainBookList: state
+  }
+}
+
+BookControl = connect(mapStateToProps)(BookControl);
 export default BookControl;
