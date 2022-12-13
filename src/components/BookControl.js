@@ -63,7 +63,7 @@ class BookControl extends React.Component {
   }
 
   handleChangingSelectedBook = (chosenBookId) => {
-    const bookSelected = this.state.mainBookList.filter(book => book.id === chosenBookId)[0];
+    const bookSelected = this.props.mainBookList[chosenBookId];
     this.setState({
       selectedBook: bookSelected,
     }); 
@@ -123,7 +123,7 @@ class BookControl extends React.Component {
       currentlyVisibleState = <NewBookForm onNewBookCreation={this.handleAddingNewBookToList} />;
       buttonText = "Return to Book List";
     } else {
-      currentlyVisibleState = <BookList bookList={this.state.mainBookList} onBookSelection={this.handleChangingSelectedBook} />;
+      currentlyVisibleState = <BookList bookList={this.props.mainBookList} onBookSelection={this.handleChangingSelectedBook} />;
       buttonText = "Add a Book";
     }
   
