@@ -18,7 +18,7 @@ function Book(props){//props (read-only) from BookList component
 Book.propTypes = {
   title: PropTypes.string,
   author: PropTypes.string,
-  id: PropTypes.number, //or is this id: PropTypes.string?
+  id: PropTypes.string, //or is this id: PropTypes.string?
   summary: PropTypes.string,
   whenBookClicked: PropTypes.func,
 };
