@@ -10,9 +10,9 @@ class BookControl extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       formVisibleOnPage: false,
-      mainBookList: [], //list of books added to SHARED state
       selectedBook: null,
       editing: false 
     };
@@ -46,9 +46,17 @@ class BookControl extends React.Component {
   }
 
   handleAddingNewBookToList = (newBook) => {
-    const newMainBookList = this.state.mainBookList.concat(newBook);
-    this.setState({
-      mainBookList: newMainBookList, 
+    const { dispatch } = this.props;
+    const { title, author, summary, id } = newBook;
+    const action = {
+      type: "ADD_BOOK",
+      title: title,
+      author: author,
+      summary: summary,
+      id: id
+    }
+    dispatch(action);
+    this.setState({ 
       formVisibleOnPage: false
     });
   }
@@ -61,9 +69,13 @@ class BookControl extends React.Component {
   }
 
   handleDeletingBook = (id) => {
-    const newMainBookList = this.state.mainBookList.filter(book=> book.id !== id);
+    const { dispatch } = this.props;
+    const action = {
+      type: "DELETE_BOOK",
+      id: id
+    }
+    dispatch(action);
     this.setState({
-      mainBookList: newMainBookList,
       selectedBook: null
     });
   }
@@ -76,12 +88,18 @@ class BookControl extends React.Component {
     });
   }
 
-  handleEditingBookInList = (editedBook)=> {
-    // const bookToEdit = this.state.mainBookList.filter(book => book.id === id)[0];
-    const shortenedBookList = this.state.mainBookList.filter(book => book.id !== editedBook.id);
-    const newMainBookList = shortenedBookList.concat(editedBook);
+  handleEditingBookInList = (bookToEdit)=> {
+    const { dispatch } = this.props;
+    const { title, author, summary, id } = bookToEdit;
+    const action = {
+      type: "UPDATE_BOOK",
+      title: title,
+      author: author,
+      summary: summary,
+      id: id
+    }
+    dispatch(action);
     this.setState({
-      mainBookList: newMainBookList,
       selectedBook: null,
       editing: false
     });
