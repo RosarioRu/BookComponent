@@ -13,7 +13,6 @@ class BookControl extends React.Component {
     super(props);
     console.log(props);
     this.state = {
-      formVisibleOnPage: false,
       selectedBook: null,
       editing: false 
     };
@@ -35,14 +34,15 @@ class BookControl extends React.Component {
   handleClick = () => {
     if (this.state.selectedBook != null) {
       this.setState({
-        formVisibleOnPage: false,
         selectedBook: null,
         editing: false
       });
     } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage
-      }));
+      const { dispatch } = this.props;
+      const action = {
+        type: "TOGGLE_FORM"
+      }
+      dispatch(action);
     }
   }
 
@@ -57,9 +57,10 @@ class BookControl extends React.Component {
       id: id
     }
     dispatch(action);
-    this.setState({ 
-      formVisibleOnPage: false
-    });
+    const action2 = {
+      type: "TOGGLE_FORM"
+    }
+    dispatch(action2);
   }
 
   handleChangingSelectedBook = (chosenBookId) => {
@@ -119,7 +120,7 @@ class BookControl extends React.Component {
       currentlyVisibleState = <BookDetail book={this.state.selectedBook} onClickingDelete={this.handleDeletingBook} onClickingEdit={this.handleEditClick} />;
       buttonText = "Return to Book List";
     }
-    else if (this.state.formVisibleOnPage) {
+    else if (this.props.formVisibleOnPage) {
       currentlyVisibleState = <NewBookForm onNewBookCreation={this.handleAddingNewBookToList} />;
       buttonText = "Return to Book List";
     } else {
@@ -139,12 +140,14 @@ class BookControl extends React.Component {
 }
 
 BookControl.propTypes = {
-  mainBookList: PropTypes.object
+  mainBookList: PropTypes.object,
+  formVisibleOnPage: PropTypes.bool
 };
 
 const mapStateToProps = state => {
   return {
-    mainBookList: state
+    mainBookList: state.mainBookList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 
