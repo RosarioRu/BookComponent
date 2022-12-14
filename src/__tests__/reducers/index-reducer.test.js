@@ -2,6 +2,8 @@ import rootReducer from '../../reducers/index';
 import { createStore } from 'redux';
 import formVisibleReducer from '../../reducers/form-visible-reducer';
 import bookListReducer from '../../reducers/book-list-reducer';
+import * as c from "./../../actions/ActionTypes";
+
 
 let store = createStore(rootReducer);
 
@@ -24,7 +26,7 @@ describe("rootReducer", () => {
 
   test("Check that ADD_BOOK action works for bookListReducer and root reducer", () => {
     const action = {
-      type: "ADD_BOOK",
+      type: c.ADD_BOOK,
       title: "Goodnight Moon",
       author: "Margaret Wise",
       summary: "A bunny says goodnight to everything in his room.",
@@ -37,7 +39,7 @@ describe("rootReducer", () => {
 
   test("Check that TOGGLE_FORM action works for formVisibleReducer and root reducer", () => {
     const action = {
-      type: "TOGGLE_FORM"
+      type: c.TOGGLE_FORM
     }
     store.dispatch(action);
     expect(store.getState().formVisibleOnPage).toEqual(formVisibleReducer(undefined, action));

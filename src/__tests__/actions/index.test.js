@@ -1,4 +1,5 @@
 import * as actions from './../../actions';
+import * as c from './../../actions/ActionTypes';
 
 
 describe("Book List actions", () => {
@@ -10,7 +11,7 @@ describe("Book List actions", () => {
       summary: "A guy and his expat friends are depressed in Europe.",
       id: 1
     })).toEqual({
-      type: "ADD_BOOK",
+      type: c.ADD_BOOK,
       title: "The Sun Also Rises",
       author: "Ernest Hemingway",
       summary: "A guy and his expat friends are depressed in Europe.",
@@ -21,14 +22,14 @@ describe("Book List actions", () => {
 
   it("deleteBook should create DELETE_BOOK action", () => {
     expect(actions.deleteBook(1)).toEqual({
-      type: "DELETE_BOOK",
+      type: c.DELETE_BOOK,
       id: 1
     });
   });
 
   it("toggleForm should create TOGGLE_FORM action", () => {
     expect(actions.toggleForm()).toEqual({
-      type: "TOGGLE_FORM"
+      type: c.TOGGLE_FORM
     });
   });
 

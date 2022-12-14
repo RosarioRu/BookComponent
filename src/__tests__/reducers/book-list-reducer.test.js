@@ -1,4 +1,5 @@
 import bookListReducer from "../../reducers/book-list-reducer";
+import * as c from "./../../actions/ActionTypes";
 
 
 describe('bookListReducer', () => {
@@ -34,7 +35,7 @@ describe('bookListReducer', () => {
   test("Should sucessfully add a new 'book' to mainBookList with the bookData provided", () => {
     const { title, author, summary, id } = bookData;
     action = {
-      type: "ADD_BOOK",
+      type: c.ADD_BOOK,
       title: title,
       author: author, 
       summary: summary,
@@ -53,7 +54,7 @@ describe('bookListReducer', () => {
   //test 3
   test("Should delete ticket with key of 2", () => {
     action = {
-      type: "DELETE_BOOK",
+      type: c.DELETE_BOOK,
       id: 2
     };
     expect(bookListReducer(currentState, action)).toEqual({
@@ -69,7 +70,7 @@ describe('bookListReducer', () => {
   //test 4
   test("Should update an existing ticket when partial changes are submitted", () => {
     action = {
-      type: "UPDATE_BOOK",
+      type: c.UPDATE_BOOK,
       id: 1,
       // title: "NEW UPDATED TITLE TEST!",
       author: "Jimminy Cricket"
@@ -94,7 +95,7 @@ describe('bookListReducer', () => {
   //test 5: checking that if we provide a null value the reducer will still work to update a book - in preperation for a partially completed/provided form. 
   test("Should keep existing title when title provided in the action is 'null' but update the summary", () => {
     action = {
-      type: "UPDATE_BOOK",
+      type: c.UPDATE_BOOK,
       id: 1,
       title: null,
       summary: "Updates the summary successfully."

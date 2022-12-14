@@ -1,15 +1,16 @@
+import * as c from './ActionTypes';
 
 export const deleteBook = id => ({
-  type: "DELETE_BOOK",
+  type: c.DELETE_BOOK,
   id
 });
 
 export const toggleForm = () => ({
-  type: "TOGGLE_FORM"
+  type: c.TOGGLE_FORM
 });
 
 export const addBook = (book) => ({
-  type: "ADD_BOOK",
+  type: c.ADD_BOOK,
   title: book.title,
   author: book.author,
   summary: book.summary,

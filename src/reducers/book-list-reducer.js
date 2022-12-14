@@ -1,9 +1,10 @@
+import * as c from './../actions/ActionTypes';
 const reducer = (state = {}, action) => {
 
   const { title, author, summary, id } = action;
 
   switch (action.type) {
-  case 'ADD_BOOK': 
+  case c.ADD_BOOK: 
     return Object.assign({}, state, {
       [action.id]: {
         // title: title,
@@ -16,11 +17,11 @@ const reducer = (state = {}, action) => {
         id: action.id
       }
     });
-  case 'DELETE_BOOK':
+  case c.DELETE_BOOK:
     let newState = {...state};
     delete newState[id];
     return newState;
-  case 'UPDATE_BOOK':
+  case c.UPDATE_BOOK:
     let copyOfState = {...state};
     const bookToUpdate = copyOfState[id];
     const updatedBook = {...bookToUpdate, title: (action.title || bookToUpdate.title), author: (author || bookToUpdate.author), summary: (summary || bookToUpdate.summary)};
