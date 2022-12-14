@@ -6,6 +6,7 @@ import EditBookForm from "./EditBookForm";
 import Book from './Book';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as a from './../actions';
 
 class BookControl extends React.Component {
 
@@ -39,27 +40,16 @@ class BookControl extends React.Component {
       });
     } else {
       const { dispatch } = this.props;
-      const action = {
-        type: "TOGGLE_FORM"
-      }
+      const action = a.toggleForm();
       dispatch(action);
     }
   }
 
   handleAddingNewBookToList = (newBook) => {
     const { dispatch } = this.props;
-    const { title, author, summary, id } = newBook;
-    const action = {
-      type: "ADD_BOOK",
-      title: title,
-      author: author,
-      summary: summary,
-      id: id
-    }
+    const action = a.addBook(newBook);
     dispatch(action);
-    const action2 = {
-      type: "TOGGLE_FORM"
-    }
+    const action2 = a.toggleForm();
     dispatch(action2);
   }
 
@@ -72,10 +62,7 @@ class BookControl extends React.Component {
 
   handleDeletingBook = (id) => {
     const { dispatch } = this.props;
-    const action = {
-      type: "DELETE_BOOK",
-      id: id
-    }
+    const action = a.deleteBook(id);
     dispatch(action);
     this.setState({
       selectedBook: null
@@ -92,14 +79,8 @@ class BookControl extends React.Component {
 
   handleEditingBookInList = (bookToEdit)=> {
     const { dispatch } = this.props;
-    const { title, author, summary, id } = bookToEdit;
-    const action = {
-      type: "UPDATE_BOOK",
-      title: title,
-      author: author,
-      summary: summary,
-      id: id
-    }
+    const action = a.addBook(bookToEdit);
+    //usign addBook action creator above but should later update with edit/update creator.
     dispatch(action);
     this.setState({
       selectedBook: null,
