@@ -62,9 +62,8 @@ function BookControl() {
     setSelectedBook(selection);
   }
 
-  const handleDeletingBook = (id) => {
-    const newMainBookList = mainBookList.filter(book => book.id !== id);
-    setMainBookList(newMainBookList);
+  const handleDeletingBook = async (id) => {
+    await deleteDoc(doc(db, "books", id));
     setSelectedBook(null);
   }
 
@@ -72,13 +71,21 @@ function BookControl() {
     setEditing(true);
   }
 
-  const handleEditingBookInList = (bookToEdit)=> {
-    const editedMainBookList = mainBookList.filter(book => book.id !== selectedBook.id)
-    .concat(bookToEdit);
-    setMainBookList(editedMainBookList);
+  // const handleEditingBookInList = (bookToEdit)=> {
+  //   const editedMainBookList = mainBookList.filter(book => book.id !== selectedBook.id)
+  //   .concat(bookToEdit);
+  //   setMainBookList(editedMainBookList);
+  //   setEditing(false);
+  //   setSelectedBook(null);
+  // }
+
+  const handleEditingBookInList = async (bookToEdit) => {
+    const bookReference = doc(db, "books", bookToEdit.id);
+    await updateDoc(bookReference, bookToEdit);
     setEditing(false);
     setSelectedBook(null);
   }
+
 
     
   let currentlyVisibleState = null;
