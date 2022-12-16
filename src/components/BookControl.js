@@ -13,16 +13,6 @@ function BookControl() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [editing, setEditing] = useState(false);
 
-  // constructor(props) {
-  //   super(props);
-  //   console.log(props);
-  //   this.state = {
-  //     formVisibleOnPage: false,
-  //     selectedBook: null,
-  //     editing: false 
-  //   };
-  // }
-
   
   const handleClick = () => {
     if (selectedBook != null) {
