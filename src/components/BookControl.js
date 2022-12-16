@@ -3,150 +3,97 @@ import NewBookForm from './NewBookForm';
 import BookList from './BookList';
 import BookDetail from './BookDetail';
 import EditBookForm from "./EditBookForm";
-import Book from './Book';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
-class BookControl extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log(props);
-    this.state = {
-      formVisibleOnPage: false,
-      selectedBook: null,
-      editing: false 
-    };
-  }
+function BookControl() {
 
-  // handleClick = () => {
-  //   this.setState(
-  //     {
-  //       formVisibleOnPage: true
-  //     }
-  //   );
+  const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
+  const [mainBookList, setMainBookList] = useState([]);
+
+  // constructor(props) {
+  //   super(props);
+  //   console.log(props);
+  //   this.state = {
+  //     formVisibleOnPage: false,
+  //     selectedBook: null,
+  //     editing: false 
+  //   };
   // }
 
-  // handleClick = () => {
-  //   this.setState({formVisibleOnPage: true});
-  // }
-
-  //this handleClick method allows toggling! 
-  handleClick = () => {
+  
+  const handleClick = () => {
     if (this.state.selectedBook != null) {
+      setFormVisibleOnPage(false);
       this.setState({
         formVisibleOnPage: false,
         selectedBook: null,
         editing: false
       });
     } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage
-      }));
+      setFormVisibleOnPage(!formVisibleOnPage);
     }
   }
 
-  handleAddingNewBookToList = (newBook) => {
-    const { dispatch } = this.props;
-    const { title, author, summary, id } = newBook;
-    const action = {
-      type: "ADD_BOOK",
-      title: title,
-      author: author,
-      summary: summary,
-      id: id
+  const handleAddingNewBookToList = (newBook) => {
+    const newMainBookList = mainBookList.concat(newBook);
+    setMainBookList(newMainBookList);
+    setFormVisibleOnPage(false)
     }
-    dispatch(action);
-    this.setState({ 
-      formVisibleOnPage: false
-    });
-  }
 
-  handleChangingSelectedBook = (chosenBookId) => {
+  const handleChangingSelectedBook = (chosenBookId) => {
     const bookSelected = this.props.mainBookList[chosenBookId];
     this.setState({
       selectedBook: bookSelected,
     }); 
   }
 
-  handleDeletingBook = (id) => {
-    const { dispatch } = this.props;
-    const action = {
-      type: "DELETE_BOOK",
-      id: id
-    }
-    dispatch(action);
-    this.setState({
-      selectedBook: null
-    });
+  const handleDeletingBook = (id) => {
+    const newMainBookList = mainBookList.filter(book => book.id !== id);
+    setMainBookList(newMainBookList);
   }
 
-  handleEditClick= () => {
-    // const bookToUpdate = this.state.mainBookList.filter(book => book.id === id)[0];
+  const handleEditClick= () => {
     this.setState({
       editing: true
-      // selectedBook: bookToUpdate
     });
   }
 
-  handleEditingBookInList = (bookToEdit)=> {
-    const { dispatch } = this.props;
-    const { title, author, summary, id } = bookToEdit;
-    const action = {
-      type: "UPDATE_BOOK",
-      title: title,
-      author: author,
-      summary: summary,
-      id: id
-    }
-    dispatch(action);
-    this.setState({
-      selectedBook: null,
-      editing: false
-    });
+  const handleEditingBookInList = (bookToEdit)=> {
+    const editedMainBookList = mainBookList.filter(book => book.id !== this.state.selectedBook.id)
+    .concat(bookToEdit);
+    setMainBookList(editedMainBookList);
   }
 
-  render() {
     
-    let currentlyVisibleState = null;
-    let buttonText = null;  
+  let currentlyVisibleState = null;
+  let buttonText = null;  
 
-    if (this.state.editing) {
-      currentlyVisibleState = <EditBookForm book={this.state.selectedBook} onEditBook={this.handleEditingBookInList} />
-      buttonText="Never mind"
-    }
-    else if (this.state.selectedBook != null) {
-      currentlyVisibleState = <BookDetail book={this.state.selectedBook} onClickingDelete={this.handleDeletingBook} onClickingEdit={this.handleEditClick} />;
-      buttonText = "Return to Book List";
-    }
-    else if (this.state.formVisibleOnPage) {
-      currentlyVisibleState = <NewBookForm onNewBookCreation={this.handleAddingNewBookToList} />;
-      buttonText = "Return to Book List";
-    } else {
-      currentlyVisibleState = <BookList bookList={this.props.mainBookList} onBookSelection={this.handleChangingSelectedBook} />;
-      buttonText = "Add a Book";
-    }
+  if (this.state.editing) {
+    currentlyVisibleState = <EditBookForm book={this.state.selectedBook} onEditBook={this.handleEditingBookInList} />
+    buttonText="Never mind"
+  }
+  else if (this.state.selectedBook != null) {
+    currentlyVisibleState = <BookDetail book={this.state.selectedBook} onClickingDelete={this.handleDeletingBook} onClickingEdit={this.handleEditClick} />;
+    buttonText = "Return to Book List";
+  }
+  else if (formVisibleOnPage) {
+    currentlyVisibleState = <NewBookForm onNewBookCreation={this.handleAddingNewBookToList} />;
+    buttonText = "Return to Book List";
+  } else {
+    currentlyVisibleState = <BookList bookList={mainBookList} onBookSelection={this.handleChangingSelectedBook} />;
+    buttonText = "Add a Book";
+  }
   
 
-    return(
-      <React.Fragment>
-        {currentlyVisibleState}
-        <button onClick = {this.handleClick}>{buttonText}</button>
-      </React.Fragment>
-    );
-  }
+  return(
+    <React.Fragment>
+      {currentlyVisibleState}
+      <button onClick = {this.handleClick}>{buttonText}</button>
+    </React.Fragment>
+  );
 
 }
 
-BookControl.propTypes = {
-  mainBookList: PropTypes.object
-};
 
-const mapStateToProps = state => {
-  return {
-    mainBookList: state
-  }
-}
-
-BookControl = connect(mapStateToProps)(BookControl);
 export default BookControl;
