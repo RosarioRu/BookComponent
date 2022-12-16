@@ -1,26 +1,35 @@
 import React from "react";
+import readImage from './../img/read.png';
 
 function Header(){
 
   const headerStyles = {
     border: "1px solid black",
+    marginTop: "0%",
     paddingLeft: "2%",
     paddingRight: "2%",
-    paddingBottom: "1%",
+    paddingTop: "2%",
+    paddingBottom: "2%",
     fontFamily: "'apple chancery', 'cursive'",
     textAlign: "left",
+    // backgroundImage:`url(${readImage})`,
+    backgroundImage: "url("+readImage+")",
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "right",
+  
     a: {
-      border: "1px solid black",
-      fontSize: "large",
+      // border: "1px solid black",
+      // fontSize: "large",
       display: "inline",
       padding: "3px",
-      paddingLeft: "6px",
+      paddingLeft: "10px",
       paddingRight: "2px",
       fontFamily: "serif",
       fontSize: "small"
     },
     b: {
-      border: "1px solid black",
+      // border: "1px solid black",
       fontSize: "xx-large",
       padding: "3px",
       paddingRight: "6px",
