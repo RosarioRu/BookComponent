@@ -3,7 +3,7 @@ import NewBookForm from './NewBookForm';
 import BookList from './BookList';
 import BookDetail from './BookDetail';
 import EditBookForm from "./EditBookForm";
-import db from './../firebase.js';
+import { db } from './../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 

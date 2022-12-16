@@ -1,5 +1,6 @@
 import React from "react";
 import readImage from './../img/read.png';
+import { Link } from "react-router-dom";
 
 function Header(){
 
@@ -43,7 +44,12 @@ function Header(){
   }
 
   return (
-    <h1 style={headerStyles}><span style={headerStyles.a}>Curators for</span><span style={headerStyles.b}> Little Readers</span></h1>
+    <React.Fragment>
+      <h1 style={headerStyles}><span style={headerStyles.a}>Curators for</span><span style={headerStyles.b}> Little Readers</span></h1>
+      <Link to="/"><button>Home</button></Link>
+      <Link to="/sign-in"><button>Log In</button></Link>
+      
+    </React.Fragment>
   );
 }
 
