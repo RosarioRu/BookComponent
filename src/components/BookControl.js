@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewBookForm from './NewBookForm';
 import BookList from './BookList';
 import BookDetail from './BookDetail';
 import EditBookForm from "./EditBookForm";
-
+import db from './../firebase.js';
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 
 function BookControl() {
@@ -12,6 +13,31 @@ function BookControl() {
   const [mainBookList, setMainBookList] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const [editing, setEditing] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const unSubscribe = onSnapshot(
+      collection(db, "books"),
+      (collectionSnapshot) => {
+        const books = [];
+        //do something with ticket newBookData
+        collectionSnapshot.forEach((doc) => {
+          books.push({
+            title: doc.data().title,
+            author: doc.data().author,
+            summary: doc.data().summary,
+            id: doc.id
+          });
+        });
+        setMainBookList(books);
+      },
+      (error) => {
+        //do something with error
+        setError(error.message);
+      }
+    );
+    return () => unSubscribe();
+  }, []);
 
   
   const handleClick = () => {
@@ -24,9 +50,10 @@ function BookControl() {
     }
   }
 
-  const handleAddingNewBookToList = (newBook) => {
-    const newMainBookList = mainBookList.concat(newBook);
-    setMainBookList(newMainBookList);
+  const handleAddingNewBookToList = async (newBookData) => {
+    await addDoc(collection(db, "books"), newBookData);
+    // const newMainBookList = mainBookList.concat(newBook);
+    // setMainBookList(newMainBookList);
     setFormVisibleOnPage(false)
     }
 
@@ -57,7 +84,9 @@ function BookControl() {
   let currentlyVisibleState = null;
   let buttonText = null;  
 
-  if (editing) {
+  if (error) {
+    currentlyVisibleState = <p>Error: {error}</p>
+  } else if (editing) {
     currentlyVisibleState = 
       <EditBookForm 
         book={selectedBook} 
@@ -87,7 +116,7 @@ function BookControl() {
   return(
     <React.Fragment>
       {currentlyVisibleState}
-      <button onClick = {handleClick}>{buttonText}</button>
+      {error ? null : <button onClick = {handleClick}>{buttonText}</button>}
     </React.Fragment>
   );
 
