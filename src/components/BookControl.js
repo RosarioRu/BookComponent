@@ -3,7 +3,7 @@ import NewBookForm from './NewBookForm';
 import BookList from './BookList';
 import BookDetail from './BookDetail';
 import EditBookForm from "./EditBookForm";
-import { db } from './../firebase.js';
+import { db, auth } from './../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 
@@ -88,45 +88,55 @@ function BookControl() {
 
 
     
-  let currentlyVisibleState = null;
-  let buttonText = null;  
-
-  if (error) {
-    currentlyVisibleState = <p>Error: {error}</p>
-  } else if (editing) {
-    currentlyVisibleState = 
-      <EditBookForm 
-        book={selectedBook} 
-        onEditBook={handleEditingBookInList} />
-    buttonText="Never mind";
-  } else if (selectedBook != null) {
-    currentlyVisibleState = 
-      <BookDetail 
-        book={selectedBook} 
-        onClickingDelete={handleDeletingBook} 
-        onClickingEdit={handleEditClick} />;
-    buttonText = "Return to Book List";
-  } else if (formVisibleOnPage) {
-    currentlyVisibleState = 
-      <NewBookForm 
-        onNewBookCreation={handleAddingNewBookToList} />;
-    buttonText = "Return to Book List";
-  } else {
-    currentlyVisibleState = 
-      <BookList 
-        bookList={mainBookList} 
-        onBookSelection={handleChangingSelectedBook} />;
-    buttonText = "Add a Book";
-  }
   
 
-  return(
-    <React.Fragment>
-      {currentlyVisibleState}
-      {error ? null : <button onClick = {handleClick}>{buttonText}</button>}
-    </React.Fragment>
-  );
+  if (auth.currentUser == null) {
+    return(
+      <React.Fragment>
+        <h1>Please sign in to see all Books</h1>
+      </React.Fragment>
+    )
+  } else if (auth.currentUser != null) {
+    
+    let currentlyVisibleState = null;
+    let buttonText = null;  
 
+    if (error) {
+      currentlyVisibleState = <p>Error: {error}</p>
+    } else if (editing) {
+      currentlyVisibleState = 
+        <EditBookForm 
+          book={selectedBook} 
+          onEditBook={handleEditingBookInList} />
+      buttonText="Never mind";
+    } else if (selectedBook != null) {
+      currentlyVisibleState = 
+        <BookDetail 
+          book={selectedBook} 
+          onClickingDelete={handleDeletingBook} 
+          onClickingEdit={handleEditClick} />;
+      buttonText = "Return to Book List";
+    } else if (formVisibleOnPage) {
+      currentlyVisibleState = 
+        <NewBookForm 
+          onNewBookCreation={handleAddingNewBookToList} />;
+      buttonText = "Return to Book List";
+    } else {
+      currentlyVisibleState = 
+        <BookList 
+          bookList={mainBookList} 
+          onBookSelection={handleChangingSelectedBook} />;
+      buttonText = "Add a Book";
+    }
+    
+    return(
+      <React.Fragment>
+        {currentlyVisibleState}
+        {error ? null : <button onClick = {handleClick}>{buttonText}</button>}
+      </React.Fragment>
+    );
+
+  }
 }
 
 
