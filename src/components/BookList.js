@@ -24,7 +24,7 @@ function BookList(props){
           summary={book.summary}
           key={book.id}
           id={book.id}
-          onBookSelection={props.onBookSelection}
+          whenBookClicked={props.onBookSelection}
         />
       )}
       </div>
