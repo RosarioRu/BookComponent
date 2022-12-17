@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { auth } from "./../firebase.js";
+
 
 function ReusableForm(props) {
   return(
@@ -19,6 +21,8 @@ function ReusableForm(props) {
           name="summary"
           placeholder="brief summary of book"
         />
+        <input type='text' name='userEmail' value={auth.currentUser.email} hidden/>
+
         <button type='submit'>{props.buttonText}</button>
       </form>
     </React.Fragment>

@@ -3,7 +3,7 @@ import Book from "./Book";
 import PropTypes from "prop-types";
 
 
-function BookList(props){
+function UserBooks(props){
 
   const controlStyles = {
     border: "1px solid black",
@@ -14,9 +14,9 @@ function BookList(props){
   return (
     <React.Fragment>
     <div style={controlStyles}>
-      <h1>All Books</h1>
+      <h1>My Books</h1>
       <hr/>
-      {Object.values(props.bookList).map( (book) => //loops through list passed down from BookControl as a prop of BookList
+      {Object.values(props.userBooks).map( (book) => //loops through list passed down from BookControl as a prop of BookList
         <Book 
           title={book.title}
           author={book.author}
@@ -31,9 +31,9 @@ function BookList(props){
   );
 }
 
-BookList.propTypes = {
-  bookList: PropTypes.array,
+UserBooks.propTypes = {
+  userBooks: PropTypes.array,
   onBookSelection: PropTypes.func
 };
 
-export default BookList;
+export default UserBooks;
