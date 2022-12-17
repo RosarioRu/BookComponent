@@ -6,6 +6,7 @@ import EditBookForm from "./EditBookForm";
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import UserBooks from './UserBooks';
+import { onAuthStateChanged } from '@firebase/auth';
 
 
 
@@ -74,14 +75,29 @@ function BookControl() {
   //   return () => unSubscribe();
   // }, []);
 
+  onAuthStateChanged(auth, (user) => {
+    let email;
+    if (user != null) {
+      email = user.email;
+    } else {
+      email = "noBooksYet";
+    }
+    
+    console.log("user is: " + email);
+    return email;
+  });
 
   useEffect(() => {
+
     let userCollection;
+    console.log(auth.currentUser);
+
     if (auth.currentUser == null) {
       userCollection = "noBooksYet";
     } else {
       userCollection = `${auth.currentUser.email}`
     }
+    console.log("user collection belongs to: " + userCollection );
     const unSubscribe = onSnapshot(
       collection(db, userCollection),
       (collectionSnapshot) => {
@@ -101,8 +117,11 @@ function BookControl() {
         setError(error.message);
       }
     );
+    console.log("user collection belongs to at the end: " + userCollection );
     return () => unSubscribe();
+    
   }, []);
+  
 
   
   const handleClick = () => {
