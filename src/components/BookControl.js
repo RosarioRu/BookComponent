@@ -214,6 +214,7 @@ function BookControl() {
             </td>
             <td>
               {alsoThis}
+              <p>{auth.currentUser.displayName}</p>
             </td>
           </tr>
           <tr>
