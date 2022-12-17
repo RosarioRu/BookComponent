@@ -46,8 +46,8 @@ function Header(){
   return (
     <React.Fragment>
       <h1 style={headerStyles}><span style={headerStyles.a}>Curators for</span><span style={headerStyles.b}> Little Readers</span></h1>
-      <Link to="/"><button>Home</button></Link>
-      <Link to="/sign-in"><button>Log In</button></Link>
+      <Link to="/"><button type="button" class="btn btn-outline-secondary btn-sm">Home</button></Link>
+      <Link to="/sign-in"><button type="button" class="btn btn-outline-secondary btn-sm">Log In</button></Link>
       
     </React.Fragment>
   );

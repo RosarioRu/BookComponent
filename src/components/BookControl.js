@@ -9,7 +9,10 @@ import UserBooks from './UserBooks';
 
 
 function BookControl() {
-
+  
+  const tableStyles = {
+    width: "70%"
+  }
  
 
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
@@ -134,7 +137,7 @@ function BookControl() {
     
     return(
       <React.Fragment>
-        <table className="table">
+        <table className="table" style={tableStyles}>
         <tbody>
           <tr>
             <td>
