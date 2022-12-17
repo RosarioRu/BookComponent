@@ -80,7 +80,7 @@ function SignIn() {
       {/* {signOutSuccess ? !null : (<div><h1>Sign Out</h1> <button onClick={doSignOut}>Log Out</button></div>)} */}
 
       <br/>
-      {signOutSuccess ? null : <button onClick={doSignOut}>Log Out</button>}
+      <button onClick={doSignOut}>Log Out</button>
       {signOutSuccess}
     </div>
     </React.Fragment>

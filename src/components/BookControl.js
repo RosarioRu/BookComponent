@@ -74,8 +74,18 @@ function BookControl() {
 
 
   useEffect(() => {
-      const unSubscribe = onSnapshot(
-      collection(db, `${auth.currentUser.email}`),
+
+    let userCollection;
+
+    if (auth.currentUser == null) {
+      userCollection = "noBooksYet";
+    } else {
+      userCollection = `${auth.currentUser.email}`
+    }
+
+    const unSubscribe = onSnapshot(
+      collection(db, userCollection),
+      // collection(db, `${auth.currentUser.email}`),
       (collectionSnapshot) => {
         const usersb = [];
         collectionSnapshot.forEach((doc) => {
