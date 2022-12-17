@@ -9,7 +9,6 @@ function UserBooks(props){
     border: "1px solid black",
     padding: "2%",
     margin: "2%",
-    
   }
 
   return (
@@ -33,7 +32,7 @@ function UserBooks(props){
 }
 
 UserBooks.propTypes = {
-  userBooks: PropTypes.object,
+  userBooks: PropTypes.array,
   onBookSelection: PropTypes.func
 };
 

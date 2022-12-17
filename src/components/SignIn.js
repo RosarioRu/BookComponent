@@ -5,6 +5,10 @@ import { createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPasswo
 
 function SignIn() {
 
+  const signInStyles = {
+    marginTop: "2%"
+  }
+
   const [signUpSuccess, setSignUpSuccess] = useState(null);
   const [signInSuccess, setSignInSuccess] = useState(null);
   const [signOutSuccess, setSignOutSuccess] = useState(null);
@@ -54,7 +58,8 @@ function SignIn() {
 
   return (
     <React.Fragment>
-      <h1>Create Your Account</h1>
+    <div style={signInStyles}>
+      <p>Create Your Account</p>
       {signUpSuccess}
       <form onSubmit={doSignUp}>
         <input type="text" name="email" placeholder="Email address" required />
@@ -63,7 +68,7 @@ function SignIn() {
         <button type="submit">Register</button>
       </form>
 
-      <h1>Sign In</h1>
+      <p>Sign In</p>
       {signInSuccess}
       <form onSubmit={doSignIn}>
         <input type="text" name="signinEmail" placeholder="Email" />
@@ -77,7 +82,7 @@ function SignIn() {
       <br/>
       {signOutSuccess ? null : <button onClick={doSignOut}>Log Out</button>}
       {signOutSuccess}
-
+    </div>
     </React.Fragment>
   );
 }

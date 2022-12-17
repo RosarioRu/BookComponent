@@ -12,7 +12,14 @@ function NewBookForm(props){
         author: event.target.author.value,
         summary: event.target.summary.value,
       });
+      props.onNewBookCreationAlsoAddToUserList({
+        title: event.target.title.value,
+        author: event.target.author.value,
+        summary: event.target.summary.value,
+        userEmail: event.target.userEmail.value,
+      });
     }
+
 
   return (
     <React.Fragment>
@@ -25,7 +32,8 @@ function NewBookForm(props){
 }
 
 NewBookForm.propTypes = {
-  onNewBookCreation: PropTypes.func
+  onNewBookCreation: PropTypes.func,
+  onNewBookCreationAlsoAddToUserList: PropTypes.func,
 };
 
 export default NewBookForm;
