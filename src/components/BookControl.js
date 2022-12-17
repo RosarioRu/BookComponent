@@ -12,7 +12,9 @@ import UserBooks from './UserBooks';
 function BookControl() {
   
   const tableStyles = {
-    width: "70%"
+    width: "70%",
+    float: "center",
+    tableLayout: "fixed"
   }
 
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);

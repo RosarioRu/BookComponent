@@ -9,7 +9,6 @@ function BookList(props){
     border: "1px solid black",
     padding: "2%",
     margin: "2%",
-  
   }
 
   return (
