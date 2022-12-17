@@ -5,10 +5,12 @@ import BookDetail from './BookDetail';
 import EditBookForm from "./EditBookForm";
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
-// import UserBooks from './UserBooks';
+import UserBooks from './UserBooks';
 
 
 function BookControl() {
+
+ 
 
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainBookList, setMainBookList] = useState([]);
@@ -16,7 +18,7 @@ function BookControl() {
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState(null);
 
-  // const [userBookList, setUserBookList] = useState([]);
+  const [userBookList, setUserBookList] = useState([]);
 
   useEffect(() => {
     const unSubscribe = onSnapshot(
@@ -93,6 +95,7 @@ function BookControl() {
   } else if (auth.currentUser != null) {
     
     let currentlyVisibleState = null;
+    let alsoThis = null;
     let buttonText = null;  
 
     if (error) {
@@ -119,18 +122,38 @@ function BookControl() {
       currentlyVisibleState = 
         <BookList 
           bookList={mainBookList} 
-          onBookSelection={handleChangingSelectedBook} />;
-        // <UserBooks
-        //   userBooks={userBookList}
-        //   onBookSelection={handleChangingSelectedBook} /
-        //   >;
+          onBookSelection={handleChangingSelectedBook} 
+          />;
+      alsoThis = 
+        <UserBooks
+          userBooks={userBookList} 
+        /> 
       buttonText = "Add a Book";
+      
     }
     
     return(
       <React.Fragment>
-        {currentlyVisibleState}
-        {error ? null : <button onClick = {handleClick}>{buttonText}</button>}
+        <table className="table">
+        <tbody>
+          <tr>
+            <td>
+              {currentlyVisibleState}
+            </td>
+            <td>
+              {alsoThis}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              {error ? null : <button onClick = {handleClick}>{buttonText}</button>}
+            </td>
+          </tr>
+        {/* {currentlyVisibleState}
+        {alsoThis} */}
+        {/* {error ? null : <button onClick = {handleClick}>{buttonText}</button>} */}
+        </tbody>
+        </table>
       </React.Fragment>
     );
 
