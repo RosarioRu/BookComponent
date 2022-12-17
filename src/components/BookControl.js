@@ -5,6 +5,7 @@ import BookDetail from './BookDetail';
 import EditBookForm from "./EditBookForm";
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+// import UserBooks from './UserBooks';
 
 
 function BookControl() {
@@ -14,6 +15,8 @@ function BookControl() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState(null);
+
+  // const [userBookList, setUserBookList] = useState([]);
 
   useEffect(() => {
     const unSubscribe = onSnapshot(
@@ -52,8 +55,6 @@ function BookControl() {
 
   const handleAddingNewBookToList = async (newBookData) => {
     await addDoc(collection(db, "books"), newBookData);
-    // const newMainBookList = mainBookList.concat(newBook);
-    // setMainBookList(newMainBookList);
     setFormVisibleOnPage(false)
     }
 
@@ -71,13 +72,6 @@ function BookControl() {
     setEditing(true);
   }
 
-  // const handleEditingBookInList = (bookToEdit)=> {
-  //   const editedMainBookList = mainBookList.filter(book => book.id !== selectedBook.id)
-  //   .concat(bookToEdit);
-  //   setMainBookList(editedMainBookList);
-  //   setEditing(false);
-  //   setSelectedBook(null);
-  // }
 
   const handleEditingBookInList = async (bookToEdit) => {
     const bookReference = doc(db, "books", bookToEdit.id);
@@ -126,6 +120,10 @@ function BookControl() {
         <BookList 
           bookList={mainBookList} 
           onBookSelection={handleChangingSelectedBook} />;
+        // <UserBooks
+        //   userBooks={userBookList}
+        //   onBookSelection={handleChangingSelectedBook} /
+        //   >;
       buttonText = "Add a Book";
     }
     
