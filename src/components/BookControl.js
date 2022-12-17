@@ -74,18 +74,14 @@ function BookControl() {
 
 
   useEffect(() => {
-
     let userCollection;
-
     if (auth.currentUser == null) {
       userCollection = "noBooksYet";
     } else {
       userCollection = `${auth.currentUser.email}`
     }
-
     const unSubscribe = onSnapshot(
       collection(db, userCollection),
-      // collection(db, `${auth.currentUser.email}`),
       (collectionSnapshot) => {
         const usersb = [];
         collectionSnapshot.forEach((doc) => {
@@ -100,7 +96,6 @@ function BookControl() {
         setUserBookList(usersb);
       },
       (error) => {
-        //do something with error
         setError(error.message);
       }
     );
@@ -160,7 +155,11 @@ function BookControl() {
   if (auth.currentUser == null) {
     return(
       <React.Fragment>
-        <h1>Please sign in to see all Books</h1>
+        <h1>Please sign in to see your books</h1>
+        <BookList 
+          bookList={mainBookList} 
+          onBookSelection={handleChangingSelectedBook} 
+        />;
       </React.Fragment>
     )
   } else if (auth.currentUser != null) {
