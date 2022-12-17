@@ -4,8 +4,18 @@ import PropTypes from "prop-types";
 
 
 function BookList(props){
+
+  const controlStyles = {
+    border: "1px solid black",
+    padding: "2%",
+    margin: "2%",
+    width: "25%"
+  }
+
   return (
     <React.Fragment>
+    <div style={controlStyles}>
+      <h1>All Books</h1>
       <hr/>
       {Object.values(props.bookList).map( (book) => //loops through list passed down from BookControl as a prop of BookList
         <Book 
@@ -17,6 +27,7 @@ function BookList(props){
           whenBookClicked={props.onBookSelection}
         />
       )}
+      </div>
     </React.Fragment>
   );
 }
