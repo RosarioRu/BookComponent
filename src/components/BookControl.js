@@ -8,12 +8,12 @@ import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'fireb
 import UserBooks from './UserBooks';
 
 
+
 function BookControl() {
   
   const tableStyles = {
     width: "70%"
   }
- 
 
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainBookList, setMainBookList] = useState([]);
@@ -47,6 +47,56 @@ function BookControl() {
     return () => unSubscribe();
   }, []);
 
+  //   useEffect(() => {
+  //   const unSubscribe = onSnapshot(
+  //     collection(db, "usersb"),
+  //     (collectionSnapshot) => {
+  //       const usersb = [];
+  //       //do something with book newBookData
+  //       collectionSnapshot.forEach((doc) => {
+  //         usersb.push({
+  //           title: doc.data().title,
+  //           author: doc.data().author,
+  //           summary: doc.data().summary,
+  //           id: doc.id,
+  //           userEmail: doc.data().userEmail
+  //         });
+  //       });
+  //       setUserBookList(usersb);
+  //     },
+  //     (error) => {
+  //       //do something with error
+  //       setError(error.message);
+  //     }
+  //   );
+  //   return () => unSubscribe();
+  // }, []);
+
+
+  useEffect(() => {
+      const unSubscribe = onSnapshot(
+      collection(db, `${auth.currentUser.email}`),
+      (collectionSnapshot) => {
+        const usersb = [];
+        collectionSnapshot.forEach((doc) => {
+          usersb.push({
+            title: doc.data().title,
+            author: doc.data().author,
+            summary: doc.data().summary,
+            id: doc.id,
+            userEmail: doc.data().userEmail
+          });
+        });
+        setUserBookList(usersb);
+      },
+      (error) => {
+        //do something with error
+        setError(error.message);
+      }
+    );
+    return () => unSubscribe();
+  }, []);
+
   
   const handleClick = () => {
     if (selectedBook != null) {
@@ -58,10 +108,18 @@ function BookControl() {
     }
   }
 
+
   const handleAddingNewBookToList = async (newBookData) => {
     await addDoc(collection(db, "books"), newBookData);
-    setFormVisibleOnPage(false)
-    }
+    setFormVisibleOnPage(false);
+  }
+
+  const handleAddingNewBookToUserList = async (newBookData) => {
+    await addDoc(collection(db, auth.currentUser.email), newBookData);
+    setFormVisibleOnPage(false);
+  }
+
+  
 
   const handleChangingSelectedBook = (chosenBookId) => {
     const selection = mainBookList.filter(book => book.id === chosenBookId)[0];
@@ -119,7 +177,7 @@ function BookControl() {
     } else if (formVisibleOnPage) {
       currentlyVisibleState = 
         <NewBookForm 
-          onNewBookCreation={handleAddingNewBookToList} />;
+          onNewBookCreation={handleAddingNewBookToList} onNewBookCreationAlsoAddToUserList={handleAddingNewBookToUserList}/>;
       buttonText = "Return to Book List";
     } else {
       currentlyVisibleState = 
