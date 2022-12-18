@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import NewBookForm from './NewBookForm';
 import BookList from './BookList';
 import BookDetail from './BookDetail';
-import EditBookForm from "./EditBookForm";
+// import EditBookForm from "./EditBookForm";
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import UserBooks from './UserBooks';
+import AddReviewForm from './AddReviewForm';
 // import { onAuthStateChanged, getAuth } from '@firebase/auth';
 
 
@@ -157,6 +158,13 @@ function BookControl() {
     setEditing(true);
   }
 
+  //Old edit book function: 
+  // const handleEditingBookInList = async (bookToEdit) => {
+  //   const bookReference = doc(db, "books", bookToEdit.id);
+  //   await updateDoc(bookReference, bookToEdit);
+  //   setEditing(false);
+  //   setSelectedBook(null);
+  // }
 
   const handleEditingBookInList = async (bookToEdit) => {
     const bookReference = doc(db, "books", bookToEdit.id);
@@ -164,6 +172,7 @@ function BookControl() {
     setEditing(false);
     setSelectedBook(null);
   }
+
 
 
     
@@ -189,8 +198,11 @@ function BookControl() {
       currentlyVisibleState = <p>Error: {error}</p>
     } else if (editing) {
       currentlyVisibleState = 
-        <EditBookForm 
-          book={selectedBook} 
+        // <EditBookForm 
+        //   book={selectedBook} 
+        //   onEditBook={handleEditingBookInList} /> 
+        <AddReviewForm
+          book={selectedBook}
           onEditBook={handleEditingBookInList} />
       buttonText="Never mind";
     } else if (selectedBook != null) {

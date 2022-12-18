@@ -7,11 +7,12 @@ function EditBookForm(props){
   function handleUpdatingBookFormSubmission(event)
     {
       event.preventDefault();
-      props.onEditBook({
+      props.onEditBook({ //this triggers handleEditingBookInList in BookControl! Sends this object to that function
         title: event.target.title.value,
         author: event.target.author.value,
         summary: event.target.summary.value,
-        id: props.book.id
+        id: props.book.id,
+        review: event.target.review.value,
       });
     }
 

@@ -11,7 +11,6 @@ function BookDetail(props) {
       <p>{book.summary}</p> 
       <p><em>{book.review}</em></p>
       {/* <p>{book.id}</p> */}
-     
 
       <button onClick={()=>props.onClickingDelete(book.id)}>Delete book</button>
 
