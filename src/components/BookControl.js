@@ -4,10 +4,12 @@ import BookList from './BookList';
 import BookDetail from './BookDetail';
 // import EditBookForm from "./EditBookForm";
 import { db, auth } from './../firebase.js';
-import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc} from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, where, getDocs} from 'firebase/firestore';
 import UserBooks from './UserBooks';
 import AddReviewForm from './AddReviewForm';
 // import { onAuthStateChanged, getAuth } from '@firebase/auth';
+
+
 
 
 
@@ -126,23 +128,53 @@ function BookControl() {
     }
   }
 
-  //Adds book to All Books list in firestore
-  const handleAddingNewBookToList = async (newBookData) => {
-    await addDoc(collection(db, "books"), newBookData);
-    setFormVisibleOnPage(false);
-  }
 
+  
+
+  //Adds book to All Books list in firestore
+  // const handleAddingNewBookToList = async (newBookData) => {
+  //   await addDoc(collection(db, "books"), newBookData);
+  //   setFormVisibleOnPage(false);
+  // }
+
+  const handleAddingNewBookToList = async (newBookData) => {
+
+    const titleEntered = newBookData.title;
+    const q = query(collection(db, "books"), where("title", "==", titleEntered))
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      await addDoc(collection(db, "books"), newBookData);
+      setFormVisibleOnPage(false);
+    
+    }
+
+    // await addDoc(collection(db, "books"), newBookData);
+    // setFormVisibleOnPage(false);
+  }
+  
   //Adds book to User's Book List in firestore
   const handleAddingNewBookToUserList = async (newBookData) => {
+    const titleEntered = newBookData.title;
+    const q = query(collection(db, "books"), where("title", "==", titleEntered))
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
     await addDoc(collection(db, auth.currentUser.email), newBookData);
     setFormVisibleOnPage(false);
+    }
   }
 
   //Adds review to Review collection in firestore
   const handleAddingNewReviewToReviewList = async(newBookData) => {
+    const titleEntered = newBookData.bookTitle;
+    const q = query(collection(db, "books"), where("title", "==", titleEntered))
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
     await addDoc(collection(db, "reviews"), newBookData);
+    } else {
+
     setFormVisibleOnPage(false);
   }
+}
   
   const handleChangingSelectedBook = (chosenBookId) => {
     const selection = mainBookList.filter(book => book.id === chosenBookId)[0];
