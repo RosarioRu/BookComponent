@@ -6,7 +6,7 @@ import EditBookForm from "./EditBookForm";
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import UserBooks from './UserBooks';
-import { onAuthStateChanged } from '@firebase/auth';
+// import { onAuthStateChanged, getAuth } from '@firebase/auth';
 
 
 
@@ -24,7 +24,23 @@ function BookControl() {
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState(null);
 
+  // const [theCurrentUser, setTheCurrentUser] = useState(null);
   const [userBookList, setUserBookList] = useState([]);
+
+  
+  // useEffect(() => {
+  //   const auth = getAuth();
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user != null) {
+  //       setTheCurrentUser(user.email);
+  //       console.log("inside:" + theCurrentUser);
+  //     } else {
+  //       setTheCurrentUser(null);
+  //     }
+  //   });
+    
+  // });
+  
 
   useEffect(() => {
     const unSubscribe = onSnapshot(
@@ -50,54 +66,29 @@ function BookControl() {
     return () => unSubscribe();
   }, []);
 
-  //   useEffect(() => {
-  //   const unSubscribe = onSnapshot(
-  //     collection(db, "usersb"),
-  //     (collectionSnapshot) => {
-  //       const usersb = [];
-  //       //do something with book newBookData
-  //       collectionSnapshot.forEach((doc) => {
-  //         usersb.push({
-  //           title: doc.data().title,
-  //           author: doc.data().author,
-  //           summary: doc.data().summary,
-  //           id: doc.id,
-  //           userEmail: doc.data().userEmail
-  //         });
-  //       });
-  //       setUserBookList(usersb);
-  //     },
-  //     (error) => {
-  //       //do something with error
-  //       setError(error.message);
-  //     }
-  //   );
-  //   return () => unSubscribe();
-  // }, []);
+  
 
-  onAuthStateChanged(auth, (user) => {
-    let email;
-    if (user != null) {
-      email = user.email;
-    } else {
-      email = "noBooksYet";
-    }
+
+  // onAuthStateChanged(auth, (user) => {
+  //   console.log("onauth beginning " + user.displayName);
+  //   let email;
+  //   if (user != null) {
+  //     email = user.email;
+  //   } else {
+  //     email = "noBooksYet";
+  //   }
     
-    console.log("user is: " + email);
-    return email;
-  });
+  //   console.log("onAuthStateChanged user is: " + email);
+  //   return email;
+  // });
 
   useEffect(() => {
-
     let userCollection;
-    console.log(auth.currentUser);
-
-    if (auth.currentUser == null) {
+    if (auth.currentUser === null) {
       userCollection = "noBooksYet";
     } else {
       userCollection = `${auth.currentUser.email}`
     }
-    console.log("user collection belongs to: " + userCollection );
     const unSubscribe = onSnapshot(
       collection(db, userCollection),
       (collectionSnapshot) => {
@@ -117,9 +108,7 @@ function BookControl() {
         setError(error.message);
       }
     );
-    console.log("user collection belongs to at the end: " + userCollection );
     return () => unSubscribe();
-    
   }, []);
   
 
