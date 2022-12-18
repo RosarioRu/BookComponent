@@ -275,7 +275,7 @@ function BookControl() {
             </td>
             <td>
               {alsoThis}
-              <p>{auth.currentUser.displayName}</p>
+              <p>Signed in user: {auth.currentUser.displayName}</p>
             </td>
           </tr>
           <tr>
