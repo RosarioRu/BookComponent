@@ -21,6 +21,7 @@ function BookList(props){
           title={book.title}
           author={book.author}
           summary={book.summary}
+          review={book.review}
           key={book.id}
           id={book.id}
           whenBookClicked={props.onBookSelection}
