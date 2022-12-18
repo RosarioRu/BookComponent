@@ -6,7 +6,7 @@ function Book(props){//props (read-only) from BookList component
     <React.Fragment>
       <div onClick={()=>props.whenBookClicked(props.id)}>
         <h3>{props.title}</h3>
-        <h3>{props.author}</h3>
+        <h6><em>by {props.author}</em></h6>
         {/* <h3>{props.id}</h3> */}
         {/* <p><em>{props.summary}</em></p> */}
         <hr/>

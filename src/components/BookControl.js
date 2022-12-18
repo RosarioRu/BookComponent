@@ -4,7 +4,7 @@ import BookList from './BookList';
 import BookDetail from './BookDetail';
 // import EditBookForm from "./EditBookForm";
 import { db, auth } from './../firebase.js';
-import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc} from 'firebase/firestore';
 import UserBooks from './UserBooks';
 import AddReviewForm from './AddReviewForm';
 // import { onAuthStateChanged, getAuth } from '@firebase/auth';
@@ -132,18 +132,18 @@ function BookControl() {
     setFormVisibleOnPage(false);
   }
 
-  // //Adds book to user's book list in firestore
-  // const handleAddingNewBookToUserList = async (newBookData) => {
-  //   await addDoc(collection(db, auth.currentUser.email), newBookData);
-  //   setFormVisibleOnPage(false);
-  // }
-
+  //Adds book to User's Book List in firestore
   const handleAddingNewBookToUserList = async (newBookData) => {
     await addDoc(collection(db, auth.currentUser.email), newBookData);
     setFormVisibleOnPage(false);
   }
-  
 
+  //Adds review to Review collection in firestore
+  const handleAddingNewReviewToReviewList = async(newBookData) => {
+    await addDoc(collection(db, "reviews"), newBookData);
+    setFormVisibleOnPage(false);
+  }
+  
   const handleChangingSelectedBook = (chosenBookId) => {
     const selection = mainBookList.filter(book => book.id === chosenBookId)[0];
     setSelectedBook(selection);
@@ -215,7 +215,9 @@ function BookControl() {
     } else if (formVisibleOnPage) {
       currentlyVisibleState = 
         <NewBookForm 
-          onNewBookCreation={handleAddingNewBookToList} onNewBookCreationAlsoAddToUserList={handleAddingNewBookToUserList}/>;
+          onNewBookCreation={handleAddingNewBookToList} 
+          onNewBookCreationAlsoAddToUserList={handleAddingNewBookToUserList}
+          onNewBookCreationAlsoAddToReviewCollection={handleAddingNewReviewToReviewList}/>
       buttonText = "Return to Book List";
     } else {
       currentlyVisibleState = 
