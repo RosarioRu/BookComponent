@@ -41,7 +41,7 @@ function BookControl() {
     
   // });
   
-
+  //renders All Books list
   useEffect(() => {
     const unSubscribe = onSnapshot(
       collection(db, "books"),
@@ -53,6 +53,7 @@ function BookControl() {
             title: doc.data().title,
             author: doc.data().author,
             summary: doc.data().summary,
+            review: doc.data().review,
             id: doc.id
           });
         });
@@ -82,6 +83,7 @@ function BookControl() {
   //   return email;
   // });
 
+  //renders User's Book List 
   useEffect(() => {
     let userCollection;
     if (auth.currentUser === null) {
@@ -123,17 +125,22 @@ function BookControl() {
     }
   }
 
-
+  //Adds book to All Books list in firestore
   const handleAddingNewBookToList = async (newBookData) => {
     await addDoc(collection(db, "books"), newBookData);
     setFormVisibleOnPage(false);
   }
 
+  // //Adds book to user's book list in firestore
+  // const handleAddingNewBookToUserList = async (newBookData) => {
+  //   await addDoc(collection(db, auth.currentUser.email), newBookData);
+  //   setFormVisibleOnPage(false);
+  // }
+
   const handleAddingNewBookToUserList = async (newBookData) => {
     await addDoc(collection(db, auth.currentUser.email), newBookData);
     setFormVisibleOnPage(false);
   }
-
   
 
   const handleChangingSelectedBook = (chosenBookId) => {

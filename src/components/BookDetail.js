@@ -10,8 +10,7 @@ function BookDetail(props) {
       <h5>By {props.book.author}</h5>
       <p>{book.summary}</p> 
       <p><em>{book.review}</em></p>
-      {console.log(`The review should go here: ${book.review}`)}
-      <p>{book.id}</p>
+      {/* <p>{book.id}</p> */}
      
 
       <button onClick={()=>props.onClickingDelete(book.id)}>Delete book</button>

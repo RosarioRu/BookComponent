@@ -21,6 +21,9 @@ function ReusableForm(props) {
           name="summary"
           placeholder="brief summary of book"
         />
+        <label htmlFor="review">Your Review: </label>
+        <textarea type="text" name="review" placeholder="Optional review for this book goes here..."></textarea>
+
         <input type='text' name='userEmail' value={auth.currentUser.email} hidden/>
 
         <button type='submit'>{props.buttonText}</button>

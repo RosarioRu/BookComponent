@@ -11,12 +11,14 @@ function NewBookForm(props){
         title: event.target.title.value,
         author: event.target.author.value,
         summary: event.target.summary.value,
+        review: event.target.review.value,
       });
       props.onNewBookCreationAlsoAddToUserList({
         title: event.target.title.value,
         author: event.target.author.value,
         summary: event.target.summary.value,
         userEmail: event.target.userEmail.value,
+        review: event.target.review.value,
       });
     }
 
