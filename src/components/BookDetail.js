@@ -14,7 +14,9 @@ function BookDetail(props) {
 
       <button onClick={()=>props.onClickingDelete(book.id)}>Delete book</button>
 
-      <button onClick={props.onClickingEdit}>Make changes</button>
+      <button onClick={props.onClickingEdit}>Add a Review!</button>
+
+      <button onClick={props.onClickingSeeReviews}>See Reviews</button>
 
       <hr/>
     </React.Fragment>
@@ -26,7 +28,8 @@ function BookDetail(props) {
 BookDetail.propTypes = {
   book: PropTypes.object,
   onClickingDelete: PropTypes.func,
-  onClickingEdit: PropTypes.func
+  onClickingEdit: PropTypes.func,
+  onClickingSeeReviews: PropTypes.func
 };
 
 export default BookDetail;

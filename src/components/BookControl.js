@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NewBookForm from './NewBookForm';
 import BookList from './BookList';
+import Reviews from './Reviews';
 import BookDetail from './BookDetail';
 import { db, auth } from './../firebase.js';
 import { collection, addDoc, onSnapshot, doc, deleteDoc, query, where, getDocs} from 'firebase/firestore';
@@ -22,6 +23,10 @@ function BookControl() {
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState(null);
   const [userBookList, setUserBookList] = useState([]);
+
+  const [reviewing, setReviewing] = useState(false);
+  const [selectedBookReviews, setSelectedBookReviews] = useState([]);
+
 
   //renders All Books list
   useEffect(() => {
@@ -138,6 +143,33 @@ function BookControl() {
     setEditing(true);
   }
 
+  const handleDisplayingReviews = async () => {
+    let laLista = [];
+
+    console.log(selectedBook.title);
+    const q = query(collection(db, "reviews"), where("bookTitle", "==", selectedBook.title), where("bookAuthor", "==", selectedBook.author));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      console.log("query returned empty");
+      setSelectedBookReviews([]);
+    } else {
+      console.log("The list before looping " + laLista);
+      console.log("query snapshot " + querySnapshot);
+      querySnapshot.forEach((doc) => {
+        laLista.push(doc.data().review);
+      });
+      console.log("the list after looping " + laLista);
+      setSelectedBookReviews(laLista);
+      console.log("selectedbooksreviews" + selectedBookReviews);
+      console.log("saved to state? " + selectedBookReviews);
+    }
+    setSelectedBookReviews(laLista);
+    
+    setReviewing(true);
+
+  }
+
 
   //Adds another review to Review collection in firestore upon new review form (used to be called 'handleEditingBookInList')
   const handleAddingReviewToAnExistingBook = async(newBookData) => {
@@ -184,14 +216,28 @@ function BookControl() {
           book={selectedBook}
           onEditBook={handleAddingReviewToAnExistingBook} />
       buttonText="Never mind";
+
+    } else if (reviewing) {
+      currentlyVisibleState = 
+        <Reviews 
+          listOfReviews={selectedBookReviews} />;
+      buttonText="Return to Book List";
+    
+
+
+
     } else if (selectedBook != null) {
       currentlyVisibleState = 
         <BookDetail 
           book={selectedBook} 
           onClickingDelete={handleDeletingBook} 
-          onClickingEdit={handleEditClick} />;
+          onClickingEdit={handleEditClick}
+          onClickingSeeReviews={handleDisplayingReviews} />;
       buttonText = "Return to Book List";
-    } else if (formVisibleOnPage) {
+
+    }
+      
+      else if (formVisibleOnPage) {
       currentlyVisibleState = 
         <NewBookForm 
           onNewBookCreation={handleAddingNewBookToList} 
