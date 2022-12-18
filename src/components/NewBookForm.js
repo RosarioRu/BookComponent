@@ -56,4 +56,5 @@ NewBookForm.propTypes = {
   onNewBookCreationAlsoAddToReviewCollection: PropTypes.func,
 };
 
+
 export default NewBookForm;

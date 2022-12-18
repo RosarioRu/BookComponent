@@ -138,7 +138,6 @@ function BookControl() {
   // }
 
   const handleAddingNewBookToList = async (newBookData) => {
-
     const titleEntered = newBookData.title;
     const q = query(collection(db, "books"), where("title", "==", titleEntered), where("author", "==", newBookData.author));
     const querySnapshot = await getDocs(q);
