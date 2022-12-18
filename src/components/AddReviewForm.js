@@ -1,48 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { auth } from "./../firebase.js";
 
 function AddReviewForm(props){
 
   function handleUpdatingBookFormSubmission(event)
     {
       event.preventDefault();
-      props.onEditBook({ //this triggers handleEditingBookInList in BookControl! Sends this object to that function
-        title: props.book.title,
-        author: props.book.author,
-        summary: props.book.summary,
-        id: props.book.id,
+      props.onEditBook({ //this triggers handleAddingReviewToAnExistingBook in BookControl! Sends this object to that function
+        bookTitle: props.book.title,
+        bookAuthor: props.book.author,
         review: event.target.review.value,
+        userEmail: event.target.userEmail.value,
       });
     }
 
   return (
     <React.Fragment>
-      
-
       <form onSubmit={handleUpdatingBookFormSubmission}>
-        {/* <input required
-          type='text'
-          name='title'
-          placeholder='Book title' 
-        />
-        <input required
-          type="text"
-          name="author"
-          placeholder="Author"
-        />
-        <input 
-          type="text"
-          name="summary"
-        /> */}
-
         <label htmlFor="review">Your Review: </label>
-        <textarea type="text" name="review" placeholder="Optional review for this book goes here..."></textarea>
-
-        {/* <input type='text' name='userEmail' value={auth.currentUser.email} hidden/> */}
-
+        <textarea required type="text" name="review" placeholder="Your review for this book goes here..."></textarea>
+        <input type='text' name='userEmail' value={auth.currentUser.email} hidden/>
         <button type='submit'>Add Review</button>
       </form>
-
     </React.Fragment>
   );
 }

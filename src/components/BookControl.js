@@ -2,15 +2,10 @@ import React, { useState, useEffect } from 'react';
 import NewBookForm from './NewBookForm';
 import BookList from './BookList';
 import BookDetail from './BookDetail';
-// import EditBookForm from "./EditBookForm";
 import { db, auth } from './../firebase.js';
-import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, where, getDocs} from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, doc, deleteDoc, query, where, getDocs} from 'firebase/firestore';
 import UserBooks from './UserBooks';
 import AddReviewForm from './AddReviewForm';
-// import { onAuthStateChanged, getAuth } from '@firebase/auth';
-
-
-
 
 
 function BookControl() {
@@ -26,31 +21,14 @@ function BookControl() {
   const [selectedBook, setSelectedBook] = useState(null);
   const [editing, setEditing] = useState(false);
   const [error, setError] = useState(null);
-
-  // const [theCurrentUser, setTheCurrentUser] = useState(null);
   const [userBookList, setUserBookList] = useState([]);
 
-  
-  // useEffect(() => {
-  //   const auth = getAuth();
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user != null) {
-  //       setTheCurrentUser(user.email);
-  //       console.log("inside:" + theCurrentUser);
-  //     } else {
-  //       setTheCurrentUser(null);
-  //     }
-  //   });
-    
-  // });
-  
   //renders All Books list
   useEffect(() => {
     const unSubscribe = onSnapshot(
       collection(db, "books"),
       (collectionSnapshot) => {
         const books = [];
-        //do something with ticket newBookData
         collectionSnapshot.forEach((doc) => {
           books.push({
             title: doc.data().title,
@@ -63,7 +41,6 @@ function BookControl() {
         setMainBookList(books);
       },
       (error) => {
-        //do something with error
         setError(error.message);
       }
     );
@@ -71,21 +48,6 @@ function BookControl() {
   }, []);
 
   
-
-
-  // onAuthStateChanged(auth, (user) => {
-  //   console.log("onauth beginning " + user.displayName);
-  //   let email;
-  //   if (user != null) {
-  //     email = user.email;
-  //   } else {
-  //     email = "noBooksYet";
-  //   }
-    
-  //   console.log("onAuthStateChanged user is: " + email);
-  //   return email;
-  // });
-
   //renders User's Book List 
   useEffect(() => {
     let userCollection;
@@ -116,7 +78,6 @@ function BookControl() {
     return () => unSubscribe();
   }, []);
   
-
   
   const handleClick = () => {
     if (selectedBook != null) {
@@ -128,14 +89,6 @@ function BookControl() {
     }
   }
 
-
-  
-
-  //Adds book to All Books list in firestore
-  // const handleAddingNewBookToList = async (newBookData) => {
-  //   await addDoc(collection(db, "books"), newBookData);
-  //   setFormVisibleOnPage(false);
-  // }
 
   //Adds book to All Books collection in firestore upon new book creation
   const handleAddingNewBookToList = async (newBookData) => {
@@ -167,10 +120,9 @@ function BookControl() {
     if (querySnapshot.empty && (newBookData.review !== "")) {
     await addDoc(collection(db, "reviews"), newBookData);
     } else {
-
-    setFormVisibleOnPage(false);
-  }
-}
+      setFormVisibleOnPage(false);
+    }
+  } 
   
   const handleChangingSelectedBook = (chosenBookId) => {
     const selection = mainBookList.filter(book => book.id === chosenBookId)[0];
@@ -186,25 +138,27 @@ function BookControl() {
     setEditing(true);
   }
 
-  //Old edit book function: 
-  // const handleEditingBookInList = async (bookToEdit) => {
-  //   const bookReference = doc(db, "books", bookToEdit.id);
-  //   await updateDoc(bookReference, bookToEdit);
-  //   setEditing(false);
-  //   setSelectedBook(null);
-  // }
 
-  const handleEditingBookInList = async (bookToEdit) => {
-    const bookReference = doc(db, "books", bookToEdit.id);
-    await updateDoc(bookReference, bookToEdit);
+  //Adds another review to Review collection in firestore upon new review form (used to be called 'handleEditingBookInList')
+  const handleAddingReviewToAnExistingBook = async(newBookData) => {
+    const whichEmailToSearch = auth.currentUser.email;
+    const q = query(collection(db, whichEmailToSearch), where("title", "==", newBookData.bookTitle), where("author", "==", newBookData.bookAuthor))
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      const copyOfNewBookData = {title: newBookData.bookTitle, author: newBookData.bookAuthor, summary: selectedBook.summary}
+      await addDoc(collection(db, whichEmailToSearch), copyOfNewBookData);
+    } else {
+      console.log("book found");
+    };
+
+    await addDoc(collection(db, "reviews"), newBookData);
     setEditing(false);
     setSelectedBook(null);
-  }
+  } 
 
-
-
-    
   
+  // branching that determines how the UI shold look:
 
   if (auth.currentUser == null) {
     return(
@@ -226,12 +180,9 @@ function BookControl() {
       currentlyVisibleState = <p>Error: {error}</p>
     } else if (editing) {
       currentlyVisibleState = 
-        // <EditBookForm 
-        //   book={selectedBook} 
-        //   onEditBook={handleEditingBookInList} /> 
         <AddReviewForm
           book={selectedBook}
-          onEditBook={handleEditingBookInList} />
+          onEditBook={handleAddingReviewToAnExistingBook} />
       buttonText="Never mind";
     } else if (selectedBook != null) {
       currentlyVisibleState = 
@@ -257,8 +208,7 @@ function BookControl() {
         <UserBooks
           userBooks={userBookList} 
         /> 
-      buttonText = "Add a Book";
-      
+      buttonText = "Add a Book"; 
     }
     
     return(
