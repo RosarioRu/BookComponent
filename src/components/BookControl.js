@@ -140,7 +140,7 @@ function BookControl() {
   const handleAddingNewBookToList = async (newBookData) => {
 
     const titleEntered = newBookData.title;
-    const q = query(collection(db, "books"), where("title", "==", titleEntered))
+    const q = query(collection(db, "books"), where("title", "==", titleEntered), where("author", "==", newBookData.author));
     const querySnapshot = await getDocs(q);
     if (querySnapshot.empty) {
       await addDoc(collection(db, "books"), newBookData);
@@ -155,7 +155,7 @@ function BookControl() {
   //Adds book to User's Book List in firestore
   const handleAddingNewBookToUserList = async (newBookData) => {
     const titleEntered = newBookData.title;
-    const q = query(collection(db, "books"), where("title", "==", titleEntered))
+    const q = query(collection(db, "books"), where("title", "==", titleEntered), where("author", "==", newBookData.author))
     const querySnapshot = await getDocs(q);
     if (querySnapshot.empty) {
     await addDoc(collection(db, auth.currentUser.email), newBookData);
@@ -166,7 +166,7 @@ function BookControl() {
   //Adds review to Review collection in firestore
   const handleAddingNewReviewToReviewList = async(newBookData) => {
     const titleEntered = newBookData.bookTitle;
-    const q = query(collection(db, "books"), where("title", "==", titleEntered))
+    const q = query(collection(db, "books"), where("title", "==", titleEntered), where("author", "==", newBookData.bookAuthor))
     const querySnapshot = await getDocs(q);
     if (querySnapshot.empty) {
     await addDoc(collection(db, "reviews"), newBookData);

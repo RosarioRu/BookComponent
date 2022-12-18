@@ -24,6 +24,7 @@ function NewBookForm(props){
       });
       props.onNewBookCreationAlsoAddToReviewCollection({
         bookTitle: event.target.title.value,
+        bookAuthor: event.target.author.value,
         // bookAuthor: event.target.author.value,
         review: event.target.review.value,
         userEmail: event.target.userEmail.value,
