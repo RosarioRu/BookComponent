@@ -137,6 +137,7 @@ function BookControl() {
   //   setFormVisibleOnPage(false);
   // }
 
+  //Adds book to All Books collection in firestore upon new book creation
   const handleAddingNewBookToList = async (newBookData) => {
     const titleEntered = newBookData.title;
     const q = query(collection(db, "books"), where("title", "==", titleEntered), where("author", "==", newBookData.author));
@@ -144,14 +145,10 @@ function BookControl() {
     if (querySnapshot.empty) {
       await addDoc(collection(db, "books"), newBookData);
       setFormVisibleOnPage(false);
-    
     }
-
-    // await addDoc(collection(db, "books"), newBookData);
-    // setFormVisibleOnPage(false);
   }
   
-  //Adds book to User's Book List in firestore
+  //Adds book to User's Book List in firestore upon new book creation
   const handleAddingNewBookToUserList = async (newBookData) => {
     const titleEntered = newBookData.title;
     const q = query(collection(db, "books"), where("title", "==", titleEntered), where("author", "==", newBookData.author))
@@ -162,12 +159,12 @@ function BookControl() {
     }
   }
 
-  //Adds review to Review collection in firestore
+  //Adds review (if one is entered) to Review collection in firestore upon new book creation
   const handleAddingNewReviewToReviewList = async(newBookData) => {
     const titleEntered = newBookData.bookTitle;
     const q = query(collection(db, "books"), where("title", "==", titleEntered), where("author", "==", newBookData.bookAuthor))
     const querySnapshot = await getDocs(q);
-    if (querySnapshot.empty) {
+    if (querySnapshot.empty && (newBookData.review !== "")) {
     await addDoc(collection(db, "reviews"), newBookData);
     } else {
 
