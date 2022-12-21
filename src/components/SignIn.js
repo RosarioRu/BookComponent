@@ -59,7 +59,7 @@ function SignIn() {
   return (
     <React.Fragment>
     <div style={signInStyles}>
-      <p>Create Your Account</p>
+      <p>Create An Account</p>
       {signUpSuccess}
       <form onSubmit={doSignUp}>
         <input type="text" name="email" placeholder="Email address" required />

@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 function Header(){
 
   const headerStyles = {
-    // border: "1px solid black",
+    border: "1px solid black",
     marginTop: "0%",
+    marginBottom: "5%",
     paddingLeft: "2%",
     paddingRight: "2%",
     paddingTop: "2%",
-    paddingBottom: "1%",
+    paddingBottom: "5%",
     fontFamily: "'apple chancery', 'cursive'",
     textAlign: "left",
     // backgroundImage:`url(${readImage})`,
@@ -19,6 +20,7 @@ function Header(){
     backgroundRepeat: "no-repeat",
     backgroundPosition: "right",
     // backgroundPosition: "left",
+    position: "relative",
   
     a: {
       // border: "1px solid black",
@@ -40,15 +42,25 @@ function Header(){
       // fontWeight: "bolder",
       fontFamily: "serif",
       fontStyle: "oblique"
+    },
+    c: {
+      // border: "1px solid black",
+      width: "15%",
+      position: "absolute",
+      bottom: "0",
+      marginLeft: "1px"
     }
   }
 
   return (
     <React.Fragment>
-      <h1 style={headerStyles}><span style={headerStyles.a}>Curators for</span><span style={headerStyles.b}> Little Readers</span></h1>
-      <Link to="/"><button type="button" className="btn btn-outline-secondary btn-sm">Home</button></Link>
-      <Link to="/sign-in"><button type="button" className="btn btn-outline-secondary btn-sm">Log In</button></Link>
-      
+    <div style={headerStyles}>
+      <h1><span style={headerStyles.a}>Curators for</span><span style={headerStyles.b}> Little Readers</span></h1>
+      <div style={headerStyles.c}>
+        <Link to="/"><button type="button" className="btn btn-outline-secondary btn-sm">Home</button></Link>
+        <Link to="/sign-in"><button type="button" className="btn btn-outline-secondary btn-sm">Log In</button></Link>
+      </div>
+    </div>
     </React.Fragment>
   );
 }
