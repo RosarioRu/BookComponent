@@ -28,8 +28,9 @@ _Senstive information is stored in an .env file. Testing of the reducer logic wa
 
 ## App Component Diagram
 
-![Alt text](./img/plan.png) "Component Diagram")
+![Alt text](./img/plan.png?raw=true  "Component Diagram")
 
+![Alt text](./PlanningApp2.png?raw=true "Optional Title")
 
 
 ## Setup/Installation Requirements
@@ -59,8 +60,8 @@ REACT_APP_FIREBASE_APP_ID = "YOUR-PROJECT-APP-ID" _
 
 * _Replace generic placeholder values above with the ones found in your Firebase project settings. Select Project settings in your project in Firebase, and scroll down until you find 'SDK setup and configuration.' This section will have yoru actual values for the firebaseConfig which you'll need to put into our .env file._
 
-*_Create firebase.js file in src directory and add the following code (source: Epicodus)_
-![Alt text](./img/configuration.png?raw=true "configuration")
+*_Create firebase.js file in src directory and add the following code (source: Epicodus)
+![Alt text](./img/configuration.png?raw=true "configuration")_
 
 
 * _In the terminal, enter: $ npm install. This will install the dependencies required for this project. It will also create the nodes_modules directory which will contain the actual packages and dependencies, as well as a list of these downloads in the package-lock.json file._
