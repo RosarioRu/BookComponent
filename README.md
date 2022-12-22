@@ -1,4 +1,4 @@
-# _curators for Little Readers_
+# _Curators for Little Readers_
 
 #### By _**Rosario Ruvalcaba**_
 
@@ -28,7 +28,7 @@ _Senstive information is stored in an .env file. Testing of the reducer logic wa
 
 ## App Component Diagram
 
-![Alt text](./img/plan.png?raw=true "Component Diagram")
+![Alt text](./img/plan.png) "Component Diagram")
 
 
 
@@ -36,11 +36,11 @@ _Senstive information is stored in an .env file. Testing of the reducer logic wa
 
 * _Clone repository from Github and save a copy on own computer_
 
-* _Create the Firebase Project using your google account at https://firebase.google.com/ and after giving it a name, navigate to the project's homepage.
+* _Create the Firebase Project using your google account at https://firebase.google.com/ and after giving it a name, navigate to the project's homepage._
 
-* _Set up Firestore: once in the Firebase Project Homepage, click 'build' on the left menu and select Firestore Database. Select 'Start in Test Mode' and leave default form values and click 'Enable' to start db creation.
+* _Set up Firestore: once in the Firebase Project Homepage, click 'build' on the left menu and select Firestore Database. Select 'Start in Test Mode' and leave default form values and click 'Enable' to start db creation._
 
-* _Add webapp to Firebase: Return to the homepage of the Firebase project and click the </> icon from underneath the message 'Get started by adding Firebase to your app'. Register the web app by giving it a nickname.
+* _Add webapp to Firebase: Return to the homepage of the Firebase project and click the </> icon from underneath the message 'Get started by adding Firebase to your app'. Register the web app by giving it a nickname._
 
 * _Navitage to root directory of project on your computer_
 
