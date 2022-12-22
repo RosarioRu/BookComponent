@@ -30,9 +30,6 @@ _Senstive information is stored in an .env file. Testing of the reducer logic wa
 
 ![Alt text](./src/img/plan.png?raw=true  "Component Diagram")
 
-![Alt text](./PlanningApp2.png?raw=true "Optional Title")
-
-
 ## Setup/Installation Requirements
 
 * _Clone repository from Github and save a copy on own computer_
@@ -56,12 +53,12 @@ REACT_APP_FIREBASE_AUTH_DOMAIN = "YOUR-PROJECT-NAME.firebaseapp.com"
 REACT_APP_FIREBASE_PROJECT_ID = "YOUR-PROJECT-FIREBASE-PROJECT-ID"
 REACT_APP_FIREBASE_STORAGE_BUCKET = "YOUR-PROJECT-NAME.appspot.com"
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID = "YOUR-PROJECT-SENDER-ID"
-REACT_APP_FIREBASE_APP_ID = "YOUR-PROJECT-APP-ID" _
+REACT_APP_FIREBASE_APP_ID = "YOUR-PROJECT-APP-ID"_
 
 * _Replace generic placeholder values above with the ones found in your Firebase project settings. Select Project settings in your project in Firebase, and scroll down until you find 'SDK setup and configuration.' This section will have yoru actual values for the firebaseConfig which you'll need to put into our .env file._
 
-*_Create firebase.js file in src directory and add the following code (source: Epicodus)
-![Alt text](./img/configuration.png?raw=true "configuration")_
+*_Create firebase.js file in src directory and add the following code (source: Epicodus)_
+![Alt text](./src/img/configuration.png?raw=true "configuration")
 
 
 * _In the terminal, enter: $ npm install. This will install the dependencies required for this project. It will also create the nodes_modules directory which will contain the actual packages and dependencies, as well as a list of these downloads in the package-lock.json file._
