@@ -28,7 +28,7 @@ _Senstive information is stored in an .env file. Testing of the reducer logic wa
 
 ## App Component Diagram
 
-![Alt text](./img/plan.png?raw=true  "Component Diagram")
+![Alt text](./src/img/plan.png?raw=true  "Component Diagram")
 
 ![Alt text](./PlanningApp2.png?raw=true "Optional Title")
 
