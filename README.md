@@ -20,7 +20,14 @@
 
 _WIP Application for parents and other caregivers to review and 'add' children's books to their list. The reviews added alter their own book collection as well as the 'reviews' collection so other users can see all reviews on a particual book. When a user adds a book, the program checks that it doens't already exist in the main book collection. If it does, the book gets added to the user's collection but not (as a duplicate) to the main book collection._
 
+![Alt text](./src/img/unregistered.png?raw=true "home")
+![Alt text](./src/img/collections.png?raw=true "home")
+
+
 _The app features Firebase user authentication using email addresses and passwords. The user's email address is checked to ensure there are no duplicate email addresses entered. The email address used for an authenticated user also becomes the name of their own book collection._
+
+![Alt text](./src/img/authentication.png?raw=true "users")
+
 
 _Site is rerendered using React, of course, so when updates occur, the user sees the changes in on their browser. Local state for what is displayed/showed is used, but book and user information is stored in firestore._
 
@@ -57,7 +64,7 @@ REACT_APP_FIREBASE_APP_ID = "YOUR-PROJECT-APP-ID"
 
 * _Replace generic placeholder values above with the ones found in your Firebase project settings. Select Project settings in your project in Firebase, and scroll down until you find 'SDK setup and configuration.' This section will have yoru actual values for the firebaseConfig which you'll need to put into our .env file._
 
-*_Create firebase.js file in src directory and add the following code (source: Epicodus)_
+* _Create firebase.js file in src directory and add the following code (source: Epicodus)_
 ![Alt text](./src/img/configuration.png?raw=true "configuration")
 
 
