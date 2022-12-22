@@ -44,16 +44,16 @@ _Senstive information is stored in an .env file. Testing of the reducer logic wa
 
 * _Ensure you first commit and push the .gitignore file that lists .env as a file to ignore. Now We can add Firebase to the React app!_
 
-* _In your terminal, add firebase to the React project using the command: npm install firebase@9 _*
+* _In your terminal, add firebase to the React project using the command: npm install firebase@9_
 
-* _Create .env file with the following: 
+* _Create .env file with the following:_ 
 
 REACT_APP_FIREBASE_API_KEY = "YOUR-UNIQUE-CREDENTIALS"
 REACT_APP_FIREBASE_AUTH_DOMAIN = "YOUR-PROJECT-NAME.firebaseapp.com"
 REACT_APP_FIREBASE_PROJECT_ID = "YOUR-PROJECT-FIREBASE-PROJECT-ID"
 REACT_APP_FIREBASE_STORAGE_BUCKET = "YOUR-PROJECT-NAME.appspot.com"
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID = "YOUR-PROJECT-SENDER-ID"
-REACT_APP_FIREBASE_APP_ID = "YOUR-PROJECT-APP-ID"_
+REACT_APP_FIREBASE_APP_ID = "YOUR-PROJECT-APP-ID"
 
 * _Replace generic placeholder values above with the ones found in your Firebase project settings. Select Project settings in your project in Firebase, and scroll down until you find 'SDK setup and configuration.' This section will have yoru actual values for the firebaseConfig which you'll need to put into our .env file._
 
